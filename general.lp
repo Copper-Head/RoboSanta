@@ -1,5 +1,6 @@
 % get robot ids
 robot(robot(R)) :- init(object(robot,R),_).
+shelf(shelf(S)) :- init(object(shelf,S),_).
 
 
 % get distance to pickingstation for each shelf
@@ -25,22 +26,27 @@ potential_task(shelf(S),Pi,O) :- init(object(product,P),value(on,(S,A))), needpr
 % assign task to robot
 
 {assigned(R,S,Pi,O) : robot(R)}=1 :- chosen(S,Pi,O).
-:- assigned(R,S,Pi,O), assigned(R2,S,Pi), R<R2.
+:- assigned(R,S,Pi,O), assigned(R2,S,Pi,O), R<R2.
 
 %%%
 % evaluate solution
-s
-% estimated distance for all shelfs to travel
-shelftravel(T) :- #sum{ D,S,Pi,O : chosen(S,Pi,O), dist(S,Pi,D) } = T.
-% estimated travel distance to shelfs
-robottravel(T) :- #sum{ D,R,S,Pi,O : assigned(R,S,Pi,O), rdist(R,S,D) } = T.
 
-#minimize{ T : selftravel(T) }.
+% estimated distance for all shelfs to travel
+shelfused(S,C) :- #sum{1,Pi,O : chosen(S,Pi,O)} = C, shelf(S).
+shelftravel(S,T*U) :- shelfused(S,U), #sum{ D,S,Pi,O : chosen(S,Pi,O), dist(S,Pi,D) } = T.
+
+%shelftravel(T) :- #sum{ D,S,Pi,O : chosen(S,Pi,O), dist(S,Pi,D) } = T.
+
+% estimated travel distance to shelfs
+taskcount(R,C) :- #sum{1,S,Pi,O : assigned(R,S,Pi,O)} = C, robot(R).
+robottravel(R,T*C) :- taskcount(R,C), #sum{ D,R,S,Pi,O : assigned(R,S,Pi,O), rdist(R,S,D) } = T.
+
+#minimize{ T : shelftravel(S,T) }.
 #minimize{ T : robottravel(T) }.
 
 
 #show chosen/3.
-#show shelftravel/1.
+#show shelftravel/2.
 #show assigned/4.
 #show robottravel/1.
 
