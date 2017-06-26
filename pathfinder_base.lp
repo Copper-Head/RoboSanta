@@ -5,22 +5,6 @@
 #const imax   = 50.
 
 %%
-% Facts
-%%
-
-node(X,Y) :- init(object(node,N),value(at,(X,Y))).
-
-robot(robot(R)) :- init(object(robot,R),_).
-shelf(shelf(S)) :- init(object(shelf,S),_).
-order(order(O)) :- init(object(order,O),_).
-product(product(P)) :- init(object(product,P),_).
-pickingStation(pickingStation(P)) :- init(object(pickingStation,P),_).
-
-at(pickingStation(P),node(X,Y)) :- init(object(pickingStation,P),value(at,(X,Y))).
-
-highway(X,Y) :- init(object(highway,_),value(at,(X,Y))).
-
-%%
 % Actions
 %%
 
@@ -112,10 +96,7 @@ abnormal(carry(R,S),t) :- holds(carry(R,S),t-1), do(R,action(putdown),t-1).
 :- robot(R), 2{holds(carry(R,S),t) : shelf(S)}.
 
 
-% format the action into the input for the visualizer
-occurs(R,action(move,(DX,DY)),t-1) :- do(R,action(move(DX,DY)),t-1).
-occurs(R,action(pickup,()),t-1) :- do(R,action(pickup),t-1).
-occurs(R,action(putdown,()),t-1) :- do(R,action(putdown),t-1).
+
 
 #show do/3.
 #show occurs/3.

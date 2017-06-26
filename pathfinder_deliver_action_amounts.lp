@@ -25,9 +25,6 @@ abnormal(request(O,P,Pi,A),t) :- holds(request(O,P,Pi,A),t-1), delivered(R,O,P,t
 abnormal(on(P,S,A),t) :- holds(on(P,S,A),t-1), holds(carry(R,S),t-1), delivered(R,O,P,t-1).
 
 
-occurs(R,action(deliver,(O,P,A)),t-1) :- do(R,action(deliver(O,P,A)),t-1).
-
-
 #program check(t).
 #external query(t).
 
