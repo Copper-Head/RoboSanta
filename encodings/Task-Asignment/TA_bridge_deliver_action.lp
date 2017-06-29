@@ -6,7 +6,7 @@ allowed(R,action(deliver(O,product(P)))) :- assigned(R,shelf(S),Pi,O), init(obje
 
 % use allowed to limit actions
 #program step(t).
-:- occurs(R,action(deliver(O,P)),t), not allowed(R,action(deliver(O,P))).
+:- do(R,action(deliver(O,P)),t), not allowed(R,action(deliver(O,P))).
 
 
 

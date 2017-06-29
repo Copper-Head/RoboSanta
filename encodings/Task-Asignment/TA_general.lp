@@ -26,7 +26,6 @@ potential_task(shelf(S),Pi,O) :- init(object(product,P),value(on,(S,A))), needpr
 % assign task to robot
 
 {assigned(R,S,Pi,O) : robot(R)}=1 :- chosen(S,Pi,O).
-:- assigned(R,S,Pi,O), assigned(R2,S,Pi,O), R<R2.
 
 %%%
 % evaluate solution

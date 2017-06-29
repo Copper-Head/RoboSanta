@@ -48,6 +48,6 @@ def create_script(files, file_name="robosanta.sh"):
 	with open(file_name, "w") as f:
 		f.write("#!bin/bash\n\n")
 		f.write("INSTANCE=$1\n")
-		f.write("clingo " + " ".join(files) + "$INSTANCE")
+		f.write("clingo " + " ".join(files) + " $INSTANCE")
 
 create_script(choose_module(parse_modules(load_files("."))))
