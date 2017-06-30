@@ -1,19 +1,19 @@
 #include "./format.lp".
 
-%choose a robot for delivery
-{delivery(O, R) : robot(R)} = 1 :- order(O).
+%choose a shelf for delivery
+{delivery(O, S) : onShelf(product(P), shelf(S))} = 1 :- ordered(order(O), product(P)).
+shelf_last_delivery(S, N) :- N=#count{O: delivery(O, S)}, shelf(S).
+shelf_delivery_numbers(S, 1..N) :- shelf(S), shelf_last_delivery(S, N).
 
-%pick a robot for the shelves 
-delivery_count(R, C) :- C = #count{O: delivery(O, R)}, robot(R).
-delivery_numbers(R, 1..C) :- delivery_count(R, C).
+%delivery ordered
+{shelf_delivery_sequence(O, S, N) : delivery(O, S)} = 1 :- shelf_delivery_numbers(S, N).
+{shelf_delivery_sequence(O, S, N) : shelf_delivery_numbers(S, N)} = 1 :- delivery(O, S).
 
-delivery_count(R, C) :- C = #count{O: delivery(O, R)}, robot(R).
-delivery_numbers(R, 1..C) :- delivery_count(R, C).
+%pick a robot for shelf
+{pairing(S, R) : robot(R)} = 1 :- shelf(S).
+robot_shelves(R, Z) :- #count{S : pairing(S, R)} = Z, robot(R).
+{robot_shelf_sequence(S, R, N) : N=1..Z} = 1 :- pairing(S, R), robot_shelves(R, Z).
+:- robot_shelf_sequence(S1, R, N), robot_shelf_sequence(S2, R, N), S1 != S2.
 
-%delivery order for robot
-{delivery_order(O, R, N) : delivery(O, R)} = 1 :- delivery_numbers(R, N). 
-{delivery_order(O, R, N) : delivery_numbers(R, N)} = 1 :- delivery(O, R).
-
-%#show delivery_count/2.
-%#show delivery_numbers/2.
-%#show delivery_order/3.
+%deliver everything to a given picking station consecutively
+:- shelf_delivery_sequence(O1, S, M-1), shelf_delivery_sequence(O2, S, M), shelf_delivery_sequence(O3, S, N), target(order(O1),station(P1)), target(order(O2),station(P2)), target(order(O3),station(P1)), P1!=P2, N>M.

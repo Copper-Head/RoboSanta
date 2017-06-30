@@ -1,18 +1,16 @@
 #include "./format.lp".
 #include "./task_assignement.lp".
 
-%costs 
-order_path(O, X1, Y1, X2, Y2) :- target(order(O),station(P)), ordered(order(O),product(A)), onShelf(product(A),shelf(S)), position(shelf(S),(X1,Y1),0), position(station(P),(X2,Y2)).
+%shelf cost calculation - basic L1 metric
+shelf_target_cost(S, M, Z) :- shelf_delivery_sequence(O1, S, M), target(order(O1),station(P1)), shelf_delivery_sequence(O2, S, M+1), target(order(O2),station(P2)), P1 != P2, position(station(P1),(X1,Y1)), position(station(P2),(X2,Y2)), |X1-X2| + |Y1-Y2| = Z.
 
-return_path(O1, O2, X1, Y1, X2, Y2) :- target(order(O1),station(P)), ordered(order(O2),product(A)), onShelf(product(A),shelf(S)), position(shelf(S),(X2,Y2),0),  position(station(P),(X1,Y1)), delivery_order(O1, R, N), delivery_order(O2, R, N+1).
+shelf_cost(S, C) :- C = #sum{Z : shelf_target_cost(S, M, Z)}, shelf(S).
 
-order_cost(O, |X1-X2| + |Y1-Y2|) :- order_path(O, X1, Y1, X2, Y2).
+%robot cost calculation - L1 metric again
+robot_shelf_cost(R, S2, C) :- robot_shelf_sequence(S1, R, N-1), shelf_last_delivery(S1, M), shelf_delivery_sequence(O, S1, M), target(order(O1),station(P1)), position(station(P1),(X1,Y1)), robot_shelf_sequence(S2, R, N), position(shelf(S2),(X2,Y2),0), C = |X1-X2| + |Y1-Y2|.
 
-return_cost(O1, |X1-X2| + |Y1-Y2|) :- return_path(O1, O2, X1, Y1, X2, Y2).
+robot_cost(R, W + Z) :- Z = #sum{C : robot_shelf_cost(R, S, C)}, position(robot(R),(X1,Y1),0), robot_shelf_sequence(S1, R, 1), position(shelf(S1),(X2,Y2),0), W = |X1-X2| + |Y1-Y2|, robot(R).
 
-%estimate path_cost for robot
-robot_path_cost(Z, R) :- robot(R), Z=#sum{N : order_cost(O, N) , delivery(O, R); M : return_cost(O, M) , delivery(O, R)}.
-
-#minimize{Z: robot_path_cost(Z,R)}.
-
-%#show robot_path_cost/2.
+% these minimize statements don't account for time, just sum of robot moves
+#minimize{C: shelf_cost(S, C)}.
+#minimize{C: robot_cost(R, C)}.
