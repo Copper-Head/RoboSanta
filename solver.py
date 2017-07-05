@@ -88,7 +88,7 @@ def main():
 
     parser.add_argument("-i", "--instance", help="Instance to solve", required=True)
     parser.add_argument("-e", "--encoding", help="encoding(s) for the logistics domain", nargs="+", required=True)
-    parser.add_argument("-m", "--multishot", help="Flag to enable multishot(incremental) solving")
+    parser.add_argument("-m", "--multishot", help="Flag to enable multishot(incremental) solving", action="store_true")
 
     args = parser.parse_args()
 
