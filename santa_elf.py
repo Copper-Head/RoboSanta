@@ -50,7 +50,7 @@ def choose_module(modules):
     
 def create_script(files, file_name="robosanta.sh"):
     multi_flag = ""
-    if raw_input("multishot(incremental) solving? (y/n): ").lower() == "y"
+    if raw_input("multishot(incremental) solving? (y/n): ").lower() == "y":
         multi_flag = " -m "
         
 
