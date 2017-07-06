@@ -1,15 +1,14 @@
 % format the action into the input for the visualizer
-#program step(t).
 
-occurs(R,action(move,(DX,DY)),t-1) :- do(R,action(move(DX,DY)),t-1).
-occurs(R,action(pickup,()),t-1) :- do(R,action(pickup),t-1).
-occurs(R,action(putdown,()),t-1) :- do(R,action(putdown),t-1).
+occurs(R,action(move,(DX,DY)),T) :- do(R,action(move(DX,DY)),T).
+occurs(R,action(pickup,()),T) :- do(R,action(pickup),T).
+occurs(R,action(putdown,()),T) :- do(R,action(putdown),T).
 
 
-occurs(R,action(deliver,(O,P,A)),t-1) :- do(R,action(deliver(O,P,A)),t-1).
+occurs(R,action(deliver,(O,P,A)),T) :- do(R,action(deliver(O,P,A)),T).
 
-occurs(R,action(deliver,(O,P)),t-1) :- do(R,action(deliver(O,P)),t-1).
+occurs(R,action(deliver,(O,P)),T) :- do(R,action(deliver(O,P)),T).
 
-occurs(R,action(deliver,(O,P)),t-1) :- delivered(R,O,P,_,t-1).
+occurs(R,action(deliver,(O,P)),T) :- delivered(R,O,P,_,T).
 
 #show occurs/3.

@@ -12,4 +12,6 @@ occurs(R,action(deliver,(O,P)),t-1) :- do(R,action(deliver(O,P)),t-1).
 
 occurs(R,action(deliver,(O,P)),t-1) :- delivered(R,O,P,_,t-1).
 
+
+
 #show occurs/3.
