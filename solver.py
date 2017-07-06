@@ -20,6 +20,8 @@ class Solver(object):
         self.step, self.ret = 1, None
         self.grounded = 0
 
+        self.solved = False    
+
     @staticmethod
     def get(val, default):
         return val if val != None else default
@@ -27,7 +29,6 @@ class Solver(object):
     def solve_incremental(self):
         print "Solving..."
         self.ret = None
-        self.solved = False
 
         while (self.step < self.imax.number) and\
                 (self.ret is None or (self.istop.string == "SAT" and not self.ret.satisfiable)):
