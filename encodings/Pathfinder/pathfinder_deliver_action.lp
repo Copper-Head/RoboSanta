@@ -2,6 +2,7 @@
 action(action(deliver(O,P))) :- order(O), product(P).
 
 on(product(P),shelf(S)) :- init(object(product,P),value(on,(S,A))).
+
 holds(request(order(O),product(P),pickingStation(Pi)),0) :- init(object(order,O),value(line,(P,A))), init(object(order,O),value(pickingStation,Pi)).
 
 

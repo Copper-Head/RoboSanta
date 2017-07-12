@@ -19,4 +19,4 @@ abnormal(request(O,P,Pi),t) :- delivered(R,O,P,Pi,t).
 
 :- holds(request(_,_,_),t), query(t).
 
-%#show holds(request(O,P,Pi),t) : order(O), product(P), pickingStation(Pi).
+#show delivered/5.
