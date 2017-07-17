@@ -155,7 +155,6 @@ def configure(filename):
 
     flag = click.confirm("multishot(incremental) solving?")
     config['incremental-mode'] = flag
-    click.echo(config)
 
     with open(filename, "w") as f:
         json.dump(config, f, indent=4)
