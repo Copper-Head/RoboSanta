@@ -1,7 +1,10 @@
 from __future__ import print_function
-import clingo
-import argparse
 import json
+import os
+
+import clingo
+import click
+from six.moves import input
 
 
 class Solver(object):
@@ -84,28 +87,92 @@ class Solver(object):
         print("Solved: ", self.solved)
 
 
-def main():
+def load_files(path, extension=".lp"):
 
-    parser = argparse.ArgumentParser(description="Simple online solver for the logistics domain")
+    file_list = []
 
-    parser.add_argument("-i", "--instance", help="Instance to solve", required=True)
-    parser.add_argument(
-        "-e", "--encoding", help="encoding(s) for the logistics domain", nargs="+", required=True)
-    parser.add_argument(
-        "-m",
-        "--multishot",
-        help="Flag to enable multishot(incremental) solving",
-        action="store_true")
+    for root, dirs, files in os.walk(path):
+        for file_ in files:
+            if file_.endswith(extension):
+                # use absolute or relative file name in output?
+                # file_list.append(os.path.abspath(file_))
+                file_list.append(os.path.join(root, file_))
 
-    args = parser.parse_args()
+    return file_list
 
-    instance = args.instance
-    encoding = args.encoding
-    multi = args.multishot
 
-    solver = Solver(instance, *encoding)
-    solver.callSolver(multi)
+def parse_modules(files):
+
+    # dict will hold all the files for a particular module
+    modules = {}
+
+    for file_ in files:
+        module_name = file_.split("_")[0]
+        if module_name not in modules:
+            modules[module_name] = []
+
+        modules[module_name].append(file_)
+
+    return modules
+
+
+def choose_module(modules):
+
+    chosen_files = []
+
+    for key, val in modules.items():
+        click.echo("choose module number:")
+        for i in zip(list(range(1, len(val) + 1)), val):
+            click.echo(i)
+        selection = list(input().split(" "))
+        if selection == [""]:
+            click.echo()
+            continue
+        chosen_files += [val[int(i) - 1] for i in selection]
+        click.echo()
+
+    return chosen_files
+
+
+@click.group()
+def cli():
+    """Simple online solver for the logistics domain."""
+    pass
+
+
+@cli.command()
+@click.option(
+    "-f",
+    "--filename",
+    help="Name of output configuration file.",
+    default='robosanta.json',
+    show_default=True)
+def configure(filename):
+    """Generate configuration file for robosanta."""
+
+    config = {}
+    config['modules'] = choose_module(parse_modules(load_files(".")))
+
+    flag = click.confirm("multishot(incremental) solving?")
+    config['incremental-mode'] = flag
+    click.echo(config)
+
+    with open(filename, "w") as f:
+        json.dump(config, f, indent=4)
+
+
+@cli.command()
+@click.argument("instance")
+@click.option('-c', '--config-file', default='robosanta.json')
+def solve(instance, config_file):
+    """Solve instance with some configuration."""
+
+    with open(config_file) as f:
+        config = json.load(f)
+
+    solver = Solver(instance, *config['modules'])
+    solver.callSolver(config['incremental-mode'])
 
 
 if __name__ == "__main__":
-    main()
+    cli()
