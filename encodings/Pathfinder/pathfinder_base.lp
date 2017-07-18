@@ -91,5 +91,3 @@ abnormal(carry(R,S),T) :- holds(carry(R,S),T-1), do(R,action(putdown),T-1), time
 :- robot(R), time(T), 2{holds(carry(R,S),T) : shelf(S)}.
 
 
-
-
