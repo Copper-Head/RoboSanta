@@ -47,6 +47,6 @@ robottravel(R,T*C) :- taskcount(R,C), #sum{ D,S,Pi,O : assigned(R,S,Pi,O), rdist
 
 %#show chosen/3.
 %#show shelftravel/2.
-%#show assigned/4.
+#show assigned/4.
 %#show robottravel/2.
 
