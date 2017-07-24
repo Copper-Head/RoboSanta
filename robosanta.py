@@ -123,6 +123,7 @@ def split_solver(instance, stage_one, stage_two, multishot=False):
     print()
     print("Path finding solving is done!")
     print("Files for stats have been created")
+    return solver1, solver2
 
 
 def load_files(path, extension=".lp"):
@@ -151,8 +152,6 @@ def parse_modules(files):
             modules[module_name] = []
 
         modules[module_name].append(file_)
-
-    print(modules)
 
     return modules
 
