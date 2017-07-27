@@ -37,6 +37,7 @@ class Solver(object):
 
     def solve_incremental(self):
         print("Solving...")
+        self.solved = False
         self.ret = None
 
         while (self.step < self.imax.number) and\
@@ -63,6 +64,7 @@ class Solver(object):
             self.step += 1
 
     def solve_normal(self):
+        self.solved = False
         self.control.ground([("base", []), ("init", [])])
         self.control.solve(on_model=self.on_model)
 
@@ -95,10 +97,15 @@ class Solver(object):
             self.solve_normal()
         self.stats(stats_output)
         print("Solved: ", self.solved)
-        print(self.shown_atoms)
         return self.shown_atoms
 
-def split_solver(instance, stage_one, stage_two, multishot=False):
+    def print_output(self):
+        if self.solved:        
+            print(self.shown_atoms)
+        else:
+            print("No output to print")
+
+def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False):
     """
     Solve two times while giving output of first solve to the next one
     :param instance: instance file
@@ -112,6 +119,9 @@ def split_solver(instance, stage_one, stage_two, multishot=False):
     solver1 = Solver(instance, *stage_one)
     output_atoms = solver1.callSolver(multishot=multishot, stats_output="stats-TA.json")
 
+    if verbose:
+        solver1.print_output()
+
     print()
     print("Task Assignment solved, moving on to path finding...")
     print()
@@ -119,6 +129,9 @@ def split_solver(instance, stage_one, stage_two, multishot=False):
     solver2 = Solver(instance, *stage_two)
     solver2.add_atoms(output_atoms)
     solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
+    
+    if verbose:
+        solver2.print_output()
 
     print()
     print("Path finding solving is done!")
@@ -214,13 +227,14 @@ def configure(filename):
 @cli.command()
 @click.argument("instance")
 @click.option('-c', '--config-file', default='robosanta.json')
-def solve(instance, config_file):
+@click.option('-v', '--verbose',     is_flag=True, default=False)
+def solve(instance, config_file, verbose):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
         config = json.load(f)
-
-    split_solver(instance, config['modules_stage_one'], config['modules_stage_two'], config['incremental-mode'])
+    print(verbose)
+    split_solver(instance, config['modules_stage_one'], config['modules_stage_two'], config['incremental-mode'], verbose)
 
 
 if __name__ == "__main__":
