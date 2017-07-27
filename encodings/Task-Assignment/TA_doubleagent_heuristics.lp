@@ -1,5 +1,5 @@
-#include "./format.lp".
-#include "./task_assignement.lp".
+#include "../input_torsten.lp".
+#include "./TA_doubleagent.lp".
 
 %shelf cost calculation - basic L1 metric
 shelf_target_cost(S, M, Z) :- shelf_delivery_sequence(O1, S, M), target(order(O1),station(P1)), shelf_delivery_sequence(O2, S, M+1), target(order(O2),station(P2)), P1 != P2, position(station(P1),(X1,Y1)), position(station(P2),(X2,Y2)), |X1-X2| + |Y1-Y2| = Z.
@@ -19,3 +19,6 @@ robot_total_cost(R, Y + Z) :- robot_shelf_cost(R, Y), robot_single_cost(R, Z).
 robot_highest_cost(Z) :- Z = #max{C,R : robot_total_cost(R, C)}.
 
 #minimize{Z: robot_highest_cost(Z)}.
+
+#show shelf_delivery_sequence/3.
+#show robot_shelf_sequence/3.

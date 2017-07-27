@@ -1,5 +1,3 @@
-#include "./format.lp".
-
 %choose a shelf for delivery
 {delivery(O, S) : onShelf(product(P), shelf(S))} = 1 :- ordered(order(O), product(P)).
 shelf_last_delivery(S, N) :- N=#count{O: delivery(O, S)}, shelf(S).
