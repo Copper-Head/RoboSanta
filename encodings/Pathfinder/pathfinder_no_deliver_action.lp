@@ -7,8 +7,8 @@ holds(request(order(O),product(P),pickingStation(Pi)),0) :- init(object(order,O)
 
 noaction(R,T) :- not do(R,A,T) : action(A); robot(R), time(T).
 
-delivered(R,O,P,Pi,T) :- holds(request(O,P,Pi),T-1), at(Pi,node(X,Y)), holds(at(R,node(X,Y)),T-1), holds(carry(R,S),T-1), on(P,S), noaction(R,T-1), time(T).
-
+{delivered(R,O,P,Pi,T)} :- holds(request(O,P,Pi),T), at(Pi,node(X,Y)), holds(at(R,node(X,Y)),T), holds(carry(R,S),T), on(P,S), noaction(R,T), time(T).
+    
 abnormal(request(O,P,Pi),T) :- delivered(R,O,P,Pi,T-1), time(T).
 
 
