@@ -72,6 +72,7 @@ class Solver(object):
         print("Model found")
         self.solved = True
 
+        self.shown_atoms = []
         for atom in model.symbols(shown=True):
             self.shown_atoms.append(str(atom))
 
@@ -100,8 +101,9 @@ class Solver(object):
         return self.shown_atoms
 
     def print_output(self):
-        if self.solved:        
-            print(self.shown_atoms)
+        if self.solved:
+            for atom in sorted(self.shown_atoms):  
+                print(atom)
         else:
             print("No output to print")
 
