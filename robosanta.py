@@ -6,6 +6,7 @@ import clingo
 import click
 from six.moves import input
 
+
 class Solver(object):
 
     def __init__(self, instance, *encodings):
@@ -33,7 +34,7 @@ class Solver(object):
     def add_atoms(self, atoms=[]):
         # atoms is a list of atoms in string form
         for atom in atoms:
-            self.control.add("base", [], atom+".")
+            self.control.add("base", [], atom + ".")
 
     def solve_incremental(self):
         print("Solving...")
@@ -102,10 +103,11 @@ class Solver(object):
 
     def print_output(self):
         if self.solved:
-            for atom in sorted(self.shown_atoms):  
+            for atom in sorted(self.shown_atoms):
                 print(atom)
         else:
             print("No output to print")
+
 
 def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False):
     """
@@ -131,7 +133,7 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False)
     solver2 = Solver(instance, *stage_two)
     solver2.add_atoms(output_atoms)
     solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
-    
+
     if verbose:
         solver2.print_output()
 
@@ -179,7 +181,6 @@ def choose_modules(modules):
     chosen_files_stage_one = []
     chosen_files_stage_two = []
 
-
     for key, val in modules.items():
         click.echo("choose module number:")
         for i in zip(list(range(1, len(val) + 1)), val):
@@ -217,7 +218,8 @@ def configure(filename):
     """Generate configuration file for robosanta."""
 
     config = {}
-    config['modules_stage_one'], config['modules_stage_two'] = choose_modules(parse_modules(load_files(".")))
+    config['modules_stage_one'], config['modules_stage_two'] = choose_modules(
+        parse_modules(load_files(".")))
 
     flag = click.confirm("multishot(incremental) solving?")
     config['incremental-mode'] = flag
@@ -229,14 +231,15 @@ def configure(filename):
 @cli.command()
 @click.argument("instance")
 @click.option('-c', '--config-file', default='robosanta.json')
-@click.option('-v', '--verbose',     is_flag=True, default=False)
+@click.option('-v', '--verbose', is_flag=True, default=False)
 def solve(instance, config_file, verbose):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
         config = json.load(f)
     print(verbose)
-    split_solver(instance, config['modules_stage_one'], config['modules_stage_two'], config['incremental-mode'], verbose)
+    split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
+                 config['incremental-mode'], verbose)
 
 
 if __name__ == "__main__":
