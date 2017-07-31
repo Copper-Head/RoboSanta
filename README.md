@@ -1,5 +1,6 @@
 # RoboSanta
 Make sure all kids big and small get their presents on time!
+A multi-agent logistics planner that uses [Answer Set Programming](https://en.wikipedia.org/wiki/Answer_set_programming).
 
 ## Setup/Installation
 The most convenient method to set things up is to run the following command
