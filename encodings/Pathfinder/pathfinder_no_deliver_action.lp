@@ -19,3 +19,5 @@ goal(T) :- not holds(request(_,_,_),T), time(T).
 :- goal(T), do(_,_,T).
 
 
+
+
