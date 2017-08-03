@@ -51,7 +51,6 @@ possible(R,action(pickup),t-1) :- holds(at(R,node(X,Y)),t-1), holds(at(S,node(X,
 
 possible(R,action(putdown),t-1) :- holds(carry(R,S),t-1), robot(R), shelf(S).
 
-
 %%%%%%% Dynamic Effects
 
 holds(at(R,node(X+DX,Y+DY)),t) :- holds(at(R,node(X,Y)),t-1), do(R,action(move(DX,DY)),t-1), node(X+DX,Y+DY).
