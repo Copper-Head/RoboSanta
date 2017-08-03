@@ -1,11 +1,19 @@
 %% ==============
 %% Robot movememt
 %% ==============
+timelimit(30).
+time(0..T) :- timelimit(T).
+
 %% Initial position
 path(R, N, 0) :-    init(object(robot,R),value(at,(X,Y))),
                     init(object(node,N), value(at,(X,Y))).
 %% subsequent positions
-{ path(R, N2, T+1) : edge(N1, N2) } = 1 :- path(R, N1, T).
+{ move(R, N2, T+1) : edge(N1, N2) } < 2 :- path(R, N1, T), time(T).
+
+moved(R,T) :- move(R,N,T).
+path(R,N,T) :- move(R,N,T).
+path(R,N,T) :- path(R,N,T-1), time(T-1), not moved(R,T).
+
 %% No robot collisions!
 :- path(R1, N, T), path(R2, N, T), R1 != R2.
 
@@ -18,7 +26,11 @@ visit(R, N) :- path(R, N, _).
 %% =============
 %% Optimizations
 %% =============
-makespan(T) :- path(_, _, T).
-#minimize{ 1, T : makespan(T)}.
 
-#minimize{ 1, R, N, T : path(R, N, T)}.
+makespan(T) :- moved(R,T).
+makespan(T) :- makespan(T+1), 0 < T.
+
+% makespan(T) :- path(_, _, T).
+#minimize{ 1,T : makespan(T)}.
+
+%#minimize{ R, N, T : path(R, N, T)}.
