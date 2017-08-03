@@ -1,0 +1,11 @@
+{
+    "modules_stage_one": [
+        ], 
+    "incremental-mode": false, 
+    "modules_stage_two": [ 
+        "./encodings/Pathfinder/pathfinder_base.lp", 
+        "./encodings/Pathfinder/pathfinder_deliver_action.lp", 
+        "./encodings/output_format_actions.lp", 
+        "./encodings/input_facts_klaus.lp"
+    ]
+}

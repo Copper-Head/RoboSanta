@@ -1,0 +1,13 @@
+{
+    "modules_stage_one": [
+        "./encodings/Task-Assignment/TA_doubleagent_heuristics.lp"
+    ], 
+    "incremental-mode": false, 
+    "modules_stage_two": [
+        "./encodings/Task-Assignment/bridge_doubleagent.lp", 
+        "./encodings/Pathfinder/pathfinder_base.lp", 
+        "./encodings/Pathfinder/pathfinder_no_deliver_action.lp", 
+        "./encodings/output_format_actions.lp", 
+        "./encodings/input_facts_klaus.lp"
+    ]
+}
