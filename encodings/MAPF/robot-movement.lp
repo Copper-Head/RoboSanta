@@ -19,6 +19,6 @@ visit(R, N) :- path(R, N, _).
 %% Optimizations
 %% =============
 makespan(T) :- path(_, _, T).
-#minimize{ T : makespan(T)}.
+#minimize{ 1, T : makespan(T)}.
 
-#minimize{ R, N, T : path(R, N, T)}.
+#minimize{ 1, R, N, T : path(R, N, T)}.
