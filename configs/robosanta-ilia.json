@@ -1,0 +1,10 @@
+{
+    "modules_stage_one": [
+        "encodings/MAPF/random-ta.lp"
+        ], 
+    "incremental-mode": false, 
+    "modules_stage_two": [
+        "encodings/MAPF/graph.lp",
+        "encodings/MAPF/robot-movement.lp"
+    ]
+}
