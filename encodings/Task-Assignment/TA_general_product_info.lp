@@ -40,8 +40,8 @@ shelftravel(S,T*U) :- shelfused(S,U), #sum{ D,P,Pi,O : chosen(S,P,Pi,O), dist(S,
 taskcount(R,C) :- #sum{1,S,P,Pi,O : assigned(R,S,P,Pi,O)} = C, robot(R).
 robottravel(R,T*C) :- taskcount(R,C), #sum{ D,S,P,Pi,O : assigned(R,S,P,Pi,O), rdist(R,S,D) } = T.
 
-#minimize{ T : shelftravel(S,T) }.
-#minimize{ T : robottravel(R,T) }.
+#minimize{ T+T2 : shelftravel(S,T), robottravel(R,T2) }.
+%#minimize{ T : robottravel(R,T) }.
 
 
 %#show chosen/3.
