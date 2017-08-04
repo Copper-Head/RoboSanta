@@ -121,7 +121,7 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False)
     print()
 
     solver1 = Solver(instance, *stage_one)
-    output_atoms = solver1.callSolver(multishot=multishot, stats_output="stats-TA.json")
+    output_atoms = solver1.callSolver(multishot=False, stats_output="stats-TA.json")
 
     if verbose:
         solver1.print_output()

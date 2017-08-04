@@ -1,4 +1,4 @@
-timelimit(40).
+timelimit(22).
 
 time(0..M) :- timelimit(M). 
 
@@ -90,6 +90,7 @@ abnormal(carry(R,S),T) :- holds(carry(R,S),T-1), do(R,action(putdown),T-1), time
 % a robot can only carry 1 shelf
 :- robot(R), time(T), 2{holds(carry(R,S),T) : shelf(S)}.
 
-%#minimize{ T,R : done(R,T) }.
 
+%#minimize{ T,R : done(R,T) }.
+#maximize{ 1,T : goal(T) }.
 

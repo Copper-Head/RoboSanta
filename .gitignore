@@ -64,5 +64,4 @@ ENV/
 # PyCharm
 .idea/
 
-# json stats
-*.json
+
