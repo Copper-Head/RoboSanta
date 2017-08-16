@@ -9,7 +9,9 @@ from six.moves import input
 
 class Solver(object):
 
-    def __init__(self, instance, *encodings):
+    def __init__(self, instance, *encodings, verbose=True):
+
+        self.verbose = verbose
 
         self.control = clingo.Control()
 
@@ -70,7 +72,7 @@ class Solver(object):
         self.control.solve(on_model=self.on_model)
 
     def on_model(self, model):
-        print("Model found")
+        self._print("Model found")
         self.solved = True
 
         self.shown_atoms = []
@@ -85,8 +87,8 @@ class Solver(object):
         self.solvetime = statistics["summary"]["times"]["solve"]
         self.groundtime = statistics["summary"]["times"]["total"] - self.solvetime
 
-        print("solve time: ", self.solvetime)
-        print("ground time:", self.groundtime)
+        self._print("solve time: ", self.solvetime)
+        self._print("ground time:", self.groundtime)
 
         if output_name is not None:
             with open(output_name, "w") as f:
@@ -98,7 +100,7 @@ class Solver(object):
         else:
             self.solve_normal()
         self.stats(stats_output)
-        print("Solved: ", self.solved)
+        self._print("Solved: ", self.solved)
         return self.shown_atoms
 
     def print_output(self):
@@ -108,6 +110,10 @@ class Solver(object):
         else:
             print("No output to print")
 
+    def _print(self, *print_args):
+        if self.verbose:
+            print(*print_args)
+
 
 def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False):
     """
@@ -116,30 +122,31 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False)
     :param stage_one: list with file names for the first solve call
     :param stage_two: list with file names for the second solve call
     """
-    print()
-    print("Solving Task Assignment...")
-    print()
+    printf = print if verbose else lambda *a: None
+    printf()
+    printf("Solving Task Assignment...")
+    printf()
 
-    solver1 = Solver(instance, *stage_one)
+    solver1 = Solver(instance, *stage_one, verbose=verbose)
     output_atoms = solver1.callSolver(multishot=False, stats_output="stats-TA.json")
 
     if verbose:
         solver1.print_output()
 
-    print()
-    print("Task Assignment solved, moving on to path finding...")
-    print()
+    printf()
+    printf("Task Assignment solved, moving on to path finding...")
+    printf()
 
-    solver2 = Solver(instance, *stage_two)
+    solver2 = Solver(instance, *stage_two, verbose=verbose)
     solver2.add_atoms(output_atoms)
     solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
 
     if verbose:
         solver2.print_output()
 
-    print()
-    print("Path finding solving is done!")
-    print("Files for stats have been created")
+    printf()
+    printf("Path finding solving is done!")
+    printf("Files for stats have been created")
     return solver1, solver2
 
 
