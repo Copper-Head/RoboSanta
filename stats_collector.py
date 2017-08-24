@@ -7,6 +7,8 @@ import os
 import json
 import csv
 
+from tqdm import tqdm
+
 from robosanta import split_solver, Solver
 from santastats import asprilo_merged_instances
 
@@ -20,7 +22,7 @@ all_configs = ["base_pf.json",]
 
 
 def single_solver(instance, modules):
-    solver = Solver(instance, *modules)
+    solver = Solver(instance, *modules, verbose=False)
     solver.callSolver(stats_output='stats.json')
     return solver
 
@@ -29,7 +31,7 @@ def single_solver(instance, modules):
 all_instances = asprilo_merged_instances('/home/quickbeam/aspilro-instances/phillip/tiny_cases/')
 counter = 0
 rows = []
-for config_file, instance in product(all_configs, all_instances):
+for config_file, instance in tqdm(list(product(all_configs, all_instances))):
     # I discovered that even for tiny cases we had to take a limited number of instances
     if counter > 300:
         break
