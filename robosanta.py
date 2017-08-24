@@ -6,6 +6,14 @@ import clingo
 import click
 from six.moves import input
 
+try:
+    import planner
+    javier_options = {'A': None, 'files': [], 'C': None, 'stats': False, 'move_query': True, 'verbose': False, 'restarts_per_solve': 100, 'force_actions': False, 'check_mem': 0, 'processes': 20, 'propagate_unsat': True, 'start': 0, 'B': None, 'limit': 3000, 'conflicts_per_restart': 60, 'outf': 0, 'forbid_actions': False, 'read_stdin': False, 'constants': [], 'inc': 5}
+    javier_clingo_options = ['--stats']
+    planner_avail = True
+except ImportError:
+    planner_avail = False
+
 
 class Solver(object):
 
@@ -109,7 +117,7 @@ class Solver(object):
             print("No output to print")
 
 
-def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False):
+def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner=False, verbose=False):
     """
     Solve two times while giving output of first solve to the next one
     :param instance: instance file
@@ -129,12 +137,17 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False)
     print()
     print("Task Assignment solved, moving on to path finding...")
     print()
+    
+    if multishot and javier_planner and planner_avail:
+        javier_options["files"] += stage_two + [instance]
+        solver2 = planner.Planner()
+        solver2.run(javier_options, javier_clingo_options, new_atoms=output_atoms)
+    else:
+        solver2 = Solver(instance, *stage_two)
+        solver2.add_atoms(output_atoms)
+        solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
 
-    solver2 = Solver(instance, *stage_two)
-    solver2.add_atoms(output_atoms)
-    solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
-
-    if verbose:
+    if verbose and not javier_planner:
         solver2.print_output()
 
     print()
@@ -232,14 +245,15 @@ def configure(filename):
 @click.argument("instance")
 @click.option('-c', '--config-file', default='robosanta.json')
 @click.option('-v', '--verbose', is_flag=True, default=False)
-def solve(instance, config_file, verbose):
+@click.option('-j', '--javier-planner', is_flag=True, default=False)
+def solve(instance, config_file, verbose, javier_planner):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
         config = json.load(f)
     print(verbose)
     split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
-                 config['incremental-mode'], verbose)
+                 multishot=config['incremental-mode'], javier_planner=javier_planner, verbose=verbose)
 
 
 if __name__ == "__main__":
