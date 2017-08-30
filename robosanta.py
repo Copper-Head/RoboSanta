@@ -17,7 +17,7 @@ except ImportError:
 
 class Solver(object):
 
-    def __init__(self, instance, *encodings, verbose=True):
+    def __init__(self, instance, verbose=True, *encodings):
 
         self.verbose = verbose
 
@@ -130,27 +130,39 @@ def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner
     :param stage_one: list with file names for the first solve call
     :param stage_two: list with file names for the second solve call
     """
-    printf = print if verbose else lambda *a: None
-    printf()
-    printf("Solving Task Assignment...")
-    printf()
-
-    solver1 = Solver(instance, *stage_one, verbose=verbose)
-    output_atoms = solver1.callSolver(multishot=False, stats_output="stats-TA.json")
-
-    if verbose:
-        solver1.print_output()
-
-    printf()
-    printf("Task Assignment solved, moving on to path finding...")
-    printf()
     
+    printf = print if verbose else lambda *a: None
+    
+    output_atoms = []
+    # only solve TA if there are files in stage one
+    if len(stage_one) > 0: 
+        printf()
+        printf("Solving Task Assignment...")
+        printf()
+
+        solver1 = Solver(instance, verbose, *stage_one)
+        output_atoms = solver1.callSolver(multishot=False, stats_output="stats-TA.json")
+
+        if verbose:
+            solver1.print_output()
+
+        printf()
+        printf("Task Assignment solved, moving on to path finding...")
+        printf()
+    
+
+    printf("Starting Pathfinding...")
+    # planner_avail ensures that javiers planner was imported
+    # if not it just solves normally.
+    # should probably clean this up a bit :/
     if multishot and javier_planner and planner_avail:
         javier_options["files"] += stage_two + [instance]
         solver2 = planner.Planner()
         solver2.run(javier_options, javier_clingo_options, new_atoms=output_atoms)
     else:
-        solver2 = Solver(instance, *stage_two, verbose=verbose)
+        if multishot and javier_planner and not planner_avail:
+            print("Javier's planner is not available. Solving normally...")
+        solver2 = Solver(instance, verbose, *stage_two)
         solver2.add_atoms(output_atoms)
         solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
 
@@ -160,7 +172,7 @@ def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner
     printf()
     printf("Path finding solving is done!")
     printf("Files for stats have been created")
-    return solver1, solver2
+    #return solver1, solver2
 
 
 def load_files(path, extension=".lp"):
@@ -258,7 +270,6 @@ def solve(instance, config_file, verbose, javier_planner):
 
     with open(config_file) as f:
         config = json.load(f)
-    print(verbose)
     split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
                  multishot=config['incremental-mode'], javier_planner=javier_planner, verbose=verbose)
 
