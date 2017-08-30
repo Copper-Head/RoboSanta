@@ -2,78 +2,69 @@
 
 Runs instances from an asprilo folder and produces a file called "test.csv" with some data about the runs.
 """
-from itertools import product
+from itertools import product, starmap
 import os
 import json
-import csv
+from collections import namedtuple
 
+from toolz import compose, curry, juxt
 from tqdm import tqdm
 
-from robosanta import split_solver, Solver
-from santastats import asprilo_merged_instances
+from robosanta import Solver, load_files
+from fileIO import read_json, experiment_item_name
 
-# SPLIT = True
-# CSV_FILE = "test-split.csv"
-SPLIT = False
-CSV_FILE = "test.csv"
 CONFIGS_ROOT = "configs"
 
-all_configs = ["base_pf.json",]
+PHILLIP_INSTANCES = "/home/quickbeam/aspilro-instances/phillip"
+TOPOLOGY_INSTANCES = "/home/quickbeam/aspilro-instances/topologies"
+STATS_BASE_DIR = '/home/quickbeam/aspilro-instances/topologies/stats'
+
+ExperimentalItem = namedtuple("ExperimentalItem", "name filepath config")
 
 
-def single_solver(instance, modules):
-    solver = Solver(instance, *modules, verbose=False)
-    solver.callSolver(stats_output='stats.json')
+def single_solver(item: ExperimentalItem):
+    modules = item.config['modules_stage_one'] + item.config['modules_stage_two']
+    solver = Solver(item.filepath, *modules, verbose=False)
+    solver.solve_normal()
     return solver
 
 
-# Be sure to adjust the path if you intend to run this!!
-all_instances = asprilo_merged_instances('/home/quickbeam/aspilro-instances/phillip/tiny_cases/')
-counter = 0
-rows = []
-for config_file, instance in tqdm(list(product(all_configs, all_instances))):
-    # I discovered that even for tiny cases we had to take a limited number of instances
-    if counter > 300:
-        break
+def combine_exp_data(config, instance_path):
+    instance_name = experiment_item_name(instance_path)
+    return ExperimentalItem(instance_name, instance_path, config)
 
-    with open(os.path.join(CONFIGS_ROOT, config_file)) as f:
-        config = json.load(f)
 
-    if SPLIT:
-        _, solver = split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
-                                 config['incremental-mode'])
+def track_progress(iterable):
+    return tqdm(list(iterable))
 
-        with open("stats-PF.json") as stats_file:
-            run_stats_pf = json.load(stats_file)
 
-        with open("stats-TA.json") as stats_file:
-            run_stats_ta = json.load(stats_file)
+def get_stats(slvr: Solver):
+    return slvr.control.statistics
 
-        solvetime = run_stats_pf["summary"]["times"]["solve"] + run_stats_ta["summary"]["times"][
-            "solve"]
-        groundtime = run_stats_pf["summary"]["times"]["total"] + run_stats_ta["summary"]["times"][
-            "total"] - solvetime
-    else:
-        try:
-            solver = single_solver(instance,
-                                   config['modules_stage_one'] + config['modules_stage_two'])
-            stats_filename = 'stats.json'
 
-            with open(stats_filename) as stats_file:
-                run_stats = json.load(stats_file)
+def write_experiment_stats(filename, stats):
+    with open(filename, mode='w') as fhandle:
+        json.dump(stats, fhandle, indent=2)
 
-            solvetime = run_stats["summary"]["times"]["solve"]
-            groundtime = run_stats["summary"]["times"]["total"] - solvetime
 
-        except RuntimeError:
-            # Not really sure what's causing this error sometimes, so for now just chugging along ignoring it
-            print('runtime error of some sort')
-            continue
+@curry
+def stats_outpath(stats_base_dir: str, item: ExperimentalItem, ext=".stats"):
+    return os.path.join(stats_base_dir, item.name + ext)
 
-    counter += 1
-    rows.append((config_file, os.path.basename(instance), solver.solved, groundtime, solvetime))
 
-with open(CSV_FILE, 'w') as agg_file:
-    aggregator = csv.writer(agg_file)
-    aggregator.writerow(["config", "instance", "solved", "ground time", "solve time"])
-    aggregator.writerows(rows)
+def main():
+
+    all_configs = ["2-robots-ta.json",]
+
+    configs = map(read_json, (os.path.join(CONFIGS_ROOT, fname) for fname in all_configs))
+
+    all_paths = load_files(os.path.join(TOPOLOGY_INSTANCES, 'tiny_cases'))
+    items = track_progress(starmap(combine_exp_data, product(configs, all_paths)))
+    pipeline = juxt(stats_outpath(STATS_BASE_DIR), compose(get_stats, single_solver))
+
+    for _ in starmap(write_experiment_stats, map(pipeline, items)):
+        pass
+
+
+if __name__ == '__main__':
+    main()
