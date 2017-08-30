@@ -21,7 +21,7 @@ ExperimentalItem = namedtuple("ExperimentalItem", "name filepath config")
 def single_solver(item: ExperimentalItem):
     """Sets up Solver instance, runs it, returns it."""
     modules = item.config['modules_stage_one'] + item.config['modules_stage_two']
-    solver = Solver(item.filepath, *modules, verbose=False)
+    solver = Solver(item.filepath, modules, verbose=False)
     solver.solve_normal()
     return solver
 
