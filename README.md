@@ -9,7 +9,7 @@ inside a virtual env of some sort:
 pip install --editable .
 ```
 This will install all the dependencies of this script *except pyclingo*.
-Moreovera it will add `robosanta` to your PATH.
+Moreover it will add a `robosanta` command to your PATH.
 To find out what it does simply run:
 ```
 robosanta --help
