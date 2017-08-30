@@ -1,7 +1,10 @@
+"""Helper module to house various file I/O and path operations.
+
+The long-term plan is to incorporate it into robosanta.
+"""
 import os
 import json
-
-from toolz import concat, curry
+from itertools import chain
 
 
 def experiment_item_name(path):
@@ -16,9 +19,11 @@ def read_json(path):
 
 
 def dir_filepaths(path):
+    """Concatenates root path with names of files contained in it."""
     for root, _, files in os.walk(path):
-        yield map(curry(os.path.join, root), files)
+        yield (os.path.join(root, f) for f in files)
 
 
 def iterate_dir(path):
-    return concat(dir_filepaths(path))
+    """Returns flat iterator over directory and its children."""
+    return chain.from_iterable(dir_filepaths(path))
