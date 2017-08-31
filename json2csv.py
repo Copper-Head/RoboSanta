@@ -9,9 +9,9 @@ import csv
 import re
 
 from toolz import curry
+import click
 
 from fileIO import experiment_item_name, iterate_dir, read_json
-from stats_collector import STATS_BASE_DIR
 
 ExperimentData = namedtuple("ExperimentData", "name summary")
 
@@ -61,13 +61,15 @@ ENTRIES = OrderedDict([
 def create_row(fields: OrderedDict, data: ExperimentData):
     return dict((field_name, field_getter(data)) for field_name, field_getter in fields.items())
 
-
-def main():
-    with open('stats-new.csv', mode='w') as fh:
+@click.command()
+@click.argument("stats_dir")
+@click.argument("output_path")
+def main(stats_dir, output_path):
+    with open(output_path, mode='w') as fh:
         writer = csv.DictWriter(fh, fieldnames=ENTRIES.keys())
         writer.writeheader()
         writer.writerows(
-            map(create_row(ENTRIES), map(parse_experiment_data, iterate_dir(STATS_BASE_DIR))))
+            map(create_row(ENTRIES), map(parse_experiment_data, iterate_dir(stats_dir))))
 
 
 if __name__ == '__main__':
