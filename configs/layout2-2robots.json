@@ -1,0 +1,12 @@
+{
+    "modules_stage_one": [
+        ],
+    "incremental-mode": false,
+    "modules_stage_two": [
+        "/home/quickbeam/aspilro-instances/topologies/task-assignments/2-robots.lp",
+        "encodings/MAPF/highway-graph.lp",
+        "encodings/MAPF/robot-movement.lp"
+    ],
+    "instances_dir": "/home/quickbeam/aspilro-instances/topologies/instances",
+    "stats_dir": "/home/quickbeam/aspilro-instances/topologies/stats2"
+}

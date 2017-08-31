@@ -6,14 +6,11 @@ from collections import namedtuple
 
 from toolz import compose, curry, juxt
 from tqdm import tqdm
+import click
 
 from robosanta import Solver, load_files
 from fileIO import read_json, experiment_item_name
 
-CONFIGS_ROOT = "configs"
-PHILLIP_INSTANCES = "/home/quickbeam/aspilro-instances/phillip"
-TOPOLOGY_INSTANCES = "/home/quickbeam/aspilro-instances/topologies"
-STATS_BASE_DIR = '/home/quickbeam/aspilro-instances/topologies/stats'
 
 ExperimentalItem = namedtuple("ExperimentalItem", "name filepath config")
 
@@ -52,15 +49,16 @@ def stats_outpath(stats_base_dir: str, item: ExperimentalItem, ext=".stats"):
     return os.path.join(stats_base_dir, item.name + ext)
 
 
-def main():
+@click.command()
+@click.argument("config_path")
+def main(config_path):
 
-    all_configs = ["2-robots-ta.json",]
-    configs = map(read_json, (os.path.join(CONFIGS_ROOT, fname) for fname in all_configs))
-    all_paths = load_files(os.path.join(TOPOLOGY_INSTANCES, 'tiny_cases'))
+    config = read_json(config_path)
+    all_paths = load_files(config['instances_dir'])
 
-    items = track_progress(starmap(combine_exp_data, product(configs, all_paths)))
+    items = track_progress(starmap(combine_exp_data, product([config], all_paths)))
     # consider simplifying this?
-    pipeline = juxt(stats_outpath(STATS_BASE_DIR), compose(get_stats, single_solver))
+    pipeline = juxt(stats_outpath(config['stats_dir']), compose(get_stats, single_solver))
 
     for fpath, stats in map(pipeline, items):
         write_experiment_stats(fpath, stats)
