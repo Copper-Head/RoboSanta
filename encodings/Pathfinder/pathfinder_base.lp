@@ -1,4 +1,4 @@
-timelimit(22).
+timelimit(30).
 
 time(0..M) :- timelimit(M). 
 

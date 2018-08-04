@@ -8,7 +8,7 @@ shelf_delivery_numbers(shelf(S), 1..N) :- shelf(S), shelf_last_delivery(shelf(S)
 {shelf_delivery_sequence(O, S, N) : shelf_delivery_numbers(S, N)} = 1 :- delivery(O, S).
 
 %pick a robot for shelf
-{pairing(shelf(S), robot(R)) : robot(R)} = 1 :- shelf(S).
+{pairing(shelf(S), robot(R)) : robot(R)} = 1 :- shelf(S), delivery(O, shelf(S)).
 robot_shelves(robot(R), Z) :- #count{S : pairing(S, robot(R))} = Z, robot(R).
 {robot_shelf_sequence(S, R, N) : N=1..Z} = 1 :- pairing(S, R), robot_shelves(R, Z).
 :- robot_shelf_sequence(S1, R, N), robot_shelf_sequence(S2, R, N), S1 != S2.
