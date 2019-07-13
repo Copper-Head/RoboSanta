@@ -1,0 +1,90 @@
+* The problem
+** General description
+   Something-something about why this is important and why it's hard (NP-complete or whatever).
+** Previous Work
+   I'm guessing something got published on the topic in the past two years directly from the ASP group, right?
+
+   I [Ilia] have some general MAPF papers from non-ASP-based formalisms that I could throw in here, but I don't think I want to write the whole introduction section all by myself ;)
+** Sources of Complexity
+*** grid/warehouse size
+*** number of robots
+*** number of shelves/orders to take care of
+*** quantities and units
+
+* Our proposal
+** Simplifying assumptions
+*** ignore quantities and units
+    This means every order can be fulfilled delivering one shelf that has product to a picking station.
+    Thus, we assign exactly one shelf to each order.
+*** focus on task assignment, warehouse layout and MAPF
+    Just one sentence that sets up the experiments that we carry out later.
+** system decomposition
+*** warehouse layout
+****  Manhattan grid
+     This is something to actually try out. I [Ilia] need to describe it in more detail.
+**** Highways
+     This is optional, shouldn't cost us much to set up since we have the encoding already, but we don't necessarily need it.
+*** task assignment
+**** interaction with the layout
+     To approximate the distances we use the Manhattan metric.
+     This is both an approximation for the length and duration a robot has to travel to a shelf and for the length and duration a shelf has to travel to picking stations.
+     We are aware that this is only a rough approximation even if the layout of the warehouse is rectangular without holes.
+     The travel path of a robot can be obstructed by other robots.
+     The travel path of a robot with a shelf can be obstructed by robots, shelves and picking stations.
+     Thus, this is a decent approximation for robot paths if the ratio of robots to nodes is small.
+     And it is only a decent approximation for shelf paths if the ratio of shelves to nodes is small and the shelves are positioned in a non-obstructing or block-wise way.
+     The initial position of robots is not as relevant as it takes less effort to move these out of the way.
+**** assigning one robot to each shelf...
+     ... is nearly optimal.
+
+     The number of possibilities for the solver is drastically reduced if each shelve only gets at most one robot in comparison to one robot for each deliver action or one robot for each shelf to picking station travel.
+The only speed-up to gain for assigning different robots to a shelf is by solving local obstruction issues.
+The switching of robots does not decrease travel time if the robot is not obstructed.
+**** shelf delivers all orders at picking station
+
+     We enforce this for a smaller search space, as travel between picking stations would be unnecessary.
+
+Thus, robots have sequences of shelves and shelves have sequences of orders.
+**** Heuristics
+Each shelf gets an cost for its travel.
+It is supposed to be an approximation of the minimum of possible time steps.
+This is the Manhattan distance between the target positions it has to travel to.
+{\color{red} Did i forget the way from shelf to first target?}
+Each robot also gets an cost.
+This is the Manhattan distance from the last picking station of the preceding shelf to the position of the next shelf.
+Added is the Manhattan distance of the robot its first shelf and the sum of all costs of the shelves assigned to this robot.
+We minimize the maximum of the robot costs to minimize the number of time steps to complete all orders.
+We also could minimize the required energy of all robots by taking the sum of all robot costs.
+
+*** path finding
+    something here by klaus
+** How we plan to test it
+   Once again, this is a setup for the experiments. I find that repeating the main message isn't the worst way to pad out a paper. However, we might have to cut this part out and that's fine :)
+* Method
+  The purpose of this section (and the following one) is to make it possible for the reader to reproduce our experiments.
+
+  We could consider merging these sections together into "Experiments"
+** describe metrics tracked
+*** number of conflicts
+    Martin said to use number of conflicts, but I didn't understand his explanation of why. Klaus, do you remember why?
+*** any other metric?
+** describe input instances
+   Were they generated randomly? If yes, did we maintain some invariants?
+   Did we keep the examples the same throughout the experiments?
+*** link to torsten or asprilo instances
+** describe software
+*** clingo & python versions
+*** link to repository
+* Experiments
+** Baseline system
+   Should this go into the "method" section? Again, lots of cross-pollination between this and the "Method" section...
+
+   We also still have to decide what the baseline actually is.
+** robustness to grid size increase
+   keep number of robots and shelves small, increase grid size
+** robustness to robot number scaling
+   take the largest grid possible and increase the number of robots while keeping the number of shelves small
+** robustness to both robot and shelf scaling
+   take maximal number of robots and maximum size grid, increase number of shelves
+* Results
+* Discussion

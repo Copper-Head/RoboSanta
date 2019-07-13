@@ -64,4 +64,8 @@ ENV/
 # PyCharm
 .idea/
 
+# Emacs
+auto/
 
+# pyenv
+.python-version
