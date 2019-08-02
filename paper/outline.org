@@ -22,6 +22,7 @@
 *** warehouse layout
 ****  Manhattan grid
      This is something to actually try out. I [Ilia] need to describe it in more detail.
+
 **** Highways
      This is optional, shouldn't cost us much to set up since we have the encoding already, but we don't necessarily need it.
 *** task assignment
@@ -55,15 +56,26 @@ This is the Manhattan distance from the last picking station of the preceding sh
 Added is the Manhattan distance of the robot its first shelf and the sum of all costs of the shelves assigned to this robot.
 We minimize the maximum of the robot costs to minimize the number of time steps to complete all orders.
 We also could minimize the required energy of all robots by taking the sum of all robot costs.
+**** TODO Ilia's questions
+
+     Not sure I understood the heuristics.
+
+     also, what is considered as "obstructed"?
 
 *** path finding
     something here by klaus
+
+
+    But I also have thoughts. We might have to look into how Javier does this shit
 ** How we plan to test it
    Once again, this is a setup for the experiments. I find that repeating the main message isn't the worst way to pad out a paper. However, we might have to cut this part out and that's fine :)
 * Method
   The purpose of this section (and the following one) is to make it possible for the reader to reproduce our experiments.
 
   We could consider merging these sections together into "Experiments"
+
+  It's important to have a setup that makes it easy for anyone to reproduce our shit.
+  That's really the main point of the whole project, to generate usable knowledge
 ** describe metrics tracked
 *** number of conflicts
     Martin said to use number of conflicts, but I didn't understand his explanation of why. Klaus, do you remember why?
@@ -72,6 +84,7 @@ We also could minimize the required energy of all robots by taking the sum of al
    Were they generated randomly? If yes, did we maintain some invariants?
    Did we keep the examples the same throughout the experiments?
 *** link to torsten or asprilo instances
+*** citation of asprilo
 ** describe software
 *** clingo & python versions
 *** link to repository
@@ -79,9 +92,14 @@ We also could minimize the required energy of all robots by taking the sum of al
 ** Baseline system
    Should this go into the "method" section? Again, lots of cross-pollination between this and the "Method" section...
 
-   We also still have to decide what the baseline actually is.
+
 ** robustness to grid size increase
    keep number of robots and shelves small, increase grid size
+
+   For instance, only 2 robots and 2 shelves/orders and then huge grids with thousands of nodes in them.
+
+   Why do we start with this?
+   Because in order to crank up the other variables (robots, shelves, orders) we first need space for all of them to fit. Moreover, we'd like our encodings to be "focused" on only the relevant planning and not incorporate too much of the warehouse space.
 ** robustness to robot number scaling
    take the largest grid possible and increase the number of robots while keeping the number of shelves small
 ** robustness to both robot and shelf scaling
