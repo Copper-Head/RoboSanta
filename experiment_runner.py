@@ -11,7 +11,8 @@ from tqdm import tqdm
 @click.argument("config_path")
 @click.argument("instances")
 @click.argument("stats_dir")
-def main(config_path, instances, stats_dir):
+@click.argument("clingo_exec")
+def main(config_path, instances, stats_dir, clingo_exec="clingo"):
     stats_dir = Path(stats_dir)
     stats_dir.mkdir(parents=True, exist_ok=True)
 
@@ -23,7 +24,10 @@ def main(config_path, instances, stats_dir):
     # Instead of developing some convoluted Python-level control for this
     # we simply take advantage of clingo's existing support for time limits.
     clingo_with_options = [
-        "clingo",
+        # On Ilia's machine the setup is wonky, he's forced to specify
+        # the full path of the clingo executable, but someone using a normal
+        # setup shouldn't have to worry about this.
+        clingo_exec,
         # We do not actually want to see the models.
         "-q",
         # Instead we want to collect as many stats as possible.

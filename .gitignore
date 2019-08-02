@@ -69,3 +69,6 @@ auto/
 
 # pyenv
 .python-version
+
+# local clingo symlink
+clingo
