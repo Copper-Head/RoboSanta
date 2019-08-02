@@ -12,7 +12,7 @@ from tqdm import tqdm
 @click.argument("instances")
 @click.argument("stats_dir")
 @click.argument("clingo_exec")
-def main(config_path, instances, stats_dir, clingo_exec="clingo"):
+def run_experiment(config_path, instances, stats_dir, clingo_exec="clingo"):
     stats_dir = Path(stats_dir)
     stats_dir.mkdir(parents=True, exist_ok=True)
 
@@ -63,4 +63,4 @@ def main(config_path, instances, stats_dir, clingo_exec="clingo"):
 
 
 if __name__ == '__main__':
-    main()
+    run_experiment()
