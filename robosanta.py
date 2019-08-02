@@ -23,9 +23,9 @@ class Solver(object):
 
         self.control = clingo.Control()
 
-        self.control.load(instance)
+        self.control.load(str(instance))
         for e in encodings:
-            self.control.load(e)
+            self.control.load(str(e))
 
         self.imax = self.get(self.control.get_const("imax"), clingo.Number(100))
         self.istop = self.get(self.control.get_const("istop"), clingo.String("SAT"))
@@ -236,7 +236,6 @@ def choose_modules(modules):
 @click.group()
 def cli():
     """Simple online solver for the logistics domain."""
-    pass
 
 
 @cli.command()
