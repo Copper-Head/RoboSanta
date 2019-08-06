@@ -1,6 +1,7 @@
 from __future__ import print_function
 import json
 import os
+import subprocess
 
 import clingo
 import click
@@ -14,8 +15,9 @@ try:
 except ImportError:
     planner_avail = False
 
+RUNSOLVER_PATH = "." + os.sep + "runsolver"
 
-class Solver(object):
+class Solver_python(object):
 
     def __init__(self, instance, encodings, verbose=True):
 
@@ -121,8 +123,70 @@ class Solver(object):
     def _print(self, *print_args):
         if self.verbose:
             print(*print_args)
+            
+def call_clingo(file_names, time_limit=60, options=[]):
+
+    CLINGO = [RUNSOLVER_PATH, "-W", "{}".format(time_limit), \
+              "-w", "runsolver.watcher", "-d", "20", 
+              "clingo"] + file_names
+
+    call = CLINGO + options
+
+    if self.verbose:
+        print("calling: " + " ".join(call))
+
+    try:
+        output = subprocess.check_output(call).decode("utf-8")
+    except subprocess.CalledProcessError as e:
+        output = e.output.decode("utf-8")
+
+    if self.verbose:
+        print("call has finished\n")
+        
+    return output
 
 
+class Solver:
+
+    def __init__(self, instance, encodings, time_limit=60, verbose=True):
+        self.instance = instance
+        self.encodings = encodings
+        self.time_limit = time_limit
+        
+        self.verbose = verbose
+        
+        self.output = None
+    
+    def callSolver(self, multishot=False, stats_output=None):
+        if multishot:
+            files = [self.instance] + self.encodings + ["incremental_python.py"]
+            self.solve(files)
+        else:
+            files = [self.instance] + self.encodings
+            self.solve(files)
+        self.stats(stats_output)
+        self._print("Solved: ", self.solved)
+        return self.shown_atoms
+                
+    def solve(self, files):
+        self.output = call_clingo(files, self.time_limit)
+        
+        parse_output(output)
+        
+    def parse_output(self, output):
+        #implement parsing the atoms
+        # save them to self.shown_atoms
+        pass
+
+    def stats(self, output_name):
+        #print the full stats
+        #if output is given, write stats to file
+        pass
+        
+    def _print(self, *print_args):
+        if self.verbose:
+            print(*print_args)
+    
 def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner=False, verbose=False):
     """
     Solve two times while giving output of first solve to the next one
