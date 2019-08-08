@@ -176,18 +176,19 @@ class Solver:
         
     def parse_best_solution(self, output):
         best_solution = ""
-        for line in output:
-            if line[:6] == "occurs":
-                best_solution = line
+        lines = output.split("\n")
+        for i, line in enumerate(lines):
+            if line.startswith("Answer"):
+                best_solution = lines[i+1]
 
-        self.output_facts = best_solution.replace(" ", ".\n")
+        self.output_facts = best_solution.replace(" ", ".\n") + "."#missing dot at the end
+
         
     def _print(self, *print_args):
         if self.verbose:
             print(*print_args)
 
     def add_atoms(self, atom_str):
-        print("atom str: " + atom_str)
         if atom_str == "":
             return 0
 
@@ -195,7 +196,7 @@ class Solver:
         with open(temp_name, "w") as f:
             f.write(atom_str)
 
-        self.temp += temp_name
+        self.temp += [temp_name]
 
     def print_output(self):
         print(self.output)
