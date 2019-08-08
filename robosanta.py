@@ -123,7 +123,8 @@ class Solver_python(object):
     def _print(self, *print_args):
         if self.verbose:
             print(*print_args)
-            
+        
+
 def call_clingo(file_names, time_limit=60, options=[]):
 
     CLINGO = [RUNSOLVER_PATH, "-W", "{}".format(time_limit), \
@@ -132,16 +133,14 @@ def call_clingo(file_names, time_limit=60, options=[]):
 
     call = CLINGO + options
 
-    if self.verbose:
-        print("calling: " + " ".join(call))
+    print("calling: " + " ".join(call))
 
     try:
         output = subprocess.check_output(call).decode("utf-8")
     except subprocess.CalledProcessError as e:
         output = e.output.decode("utf-8")
 
-    if self.verbose:
-        print("call has finished\n")
+    print("call has finished\n")
         
     return output
 
@@ -149,43 +148,57 @@ def call_clingo(file_names, time_limit=60, options=[]):
 class Solver:
 
     def __init__(self, instance, encodings, time_limit=60, verbose=True):
-        self.instance = instance
+        self.instance = list(instance)
         self.encodings = encodings
         self.time_limit = time_limit
         
         self.verbose = verbose
         
         self.output = None
+
+        self.temp = []
+
+        self.output_facts = ""
     
     def callSolver(self, multishot=False, stats_output=None):
         if multishot:
-            files = [self.instance] + self.encodings + ["incremental_python.py"]
-            self.solve(files)
+            files = self.instance + self.encodings + ["incremental_python.py"]
         else:
-            files = [self.instance] + self.encodings
-            self.solve(files)
-        self.stats(stats_output)
-        self._print("Solved: ", self.solved)
-        return self.shown_atoms
+            files = self.instance + self.encodings
+
+        self.solve(files + self.temp)
+        return self.output_facts
                 
     def solve(self, files):
         self.output = call_clingo(files, self.time_limit)
         
-        parse_output(output)
+        self.parse_best_solution(self.output)
         
-    def parse_output(self, output):
-        #implement parsing the atoms
-        # save them to self.shown_atoms
-        pass
+    def parse_best_solution(self, output):
+        best_solution = ""
+        for line in output:
+            if line[:6] == "occurs":
+                best_solution = line
 
-    def stats(self, output_name):
-        #print the full stats
-        #if output is given, write stats to file
-        pass
+        self.output_facts = best_solution.replace(" ", ".\n")
         
     def _print(self, *print_args):
         if self.verbose:
             print(*print_args)
+
+    def add_atoms(self, atom_str):
+        print("atom str: " + atom_str)
+        if atom_str == "":
+            return 0
+
+        temp_name = "temp.lp"
+        with open(temp_name, "w") as f:
+            f.write(atom_str)
+
+        self.temp += temp_name
+
+    def print_output(self):
+        print(self.output)
     
 def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner=False, verbose=False):
     """
@@ -197,7 +210,7 @@ def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner
 
     printf = print if verbose else lambda *a: None
 
-    output_atoms = []
+    output_atoms = ""
     # only solve TA if there are files in stage one
     if len(stage_one) > 0:
         printf()
@@ -324,7 +337,7 @@ def configure(filename):
 
 
 @cli.command()
-@click.argument("instance")
+@click.argument("instance", nargs=-1)
 @click.option('-c', '--config-file', default='robosanta.json')
 @click.option('-v', '--verbose', is_flag=True, default=False)
 @click.option('-j', '--javier-planner', is_flag=True, default=False)
