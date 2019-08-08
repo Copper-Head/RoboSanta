@@ -1,0 +1,10 @@
+assign(robot(1),shelf(1),station(3)).
+assign(robot(10),shelf(34),station(3)).
+assign(robot(2),shelf(14),station(3)).
+assign(robot(3),shelf(22),station(3)).
+assign(robot(4),shelf(6),station(3)).
+assign(robot(5),shelf(59),station(3)).
+assign(robot(6),shelf(10),station(3)).
+assign(robot(7),shelf(49),station(3)).
+assign(robot(8),shelf(48),station(3)).
+assign(robot(9),shelf(47),station(3)).
