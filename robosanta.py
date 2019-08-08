@@ -194,7 +194,7 @@ class Solver:
     def print_output(self):
         print(self.output)
     
-def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner=False, verbose=False, time_limit_ta=60, time_limit_pf=60):
+def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False, time_limit_ta=60, time_limit_pf=60):
     """
     Solve two times while giving output of first solve to the next one
     :param instance: instance file
@@ -308,7 +308,7 @@ def configure(filename):
 
     config = {}
     config['modules_stage_one'], config['modules_stage_two'] = choose_modules(
-        parse_modules(load_files(".")))
+        parse_modules(load_files("./encodings")))
 
     flag = click.confirm("multishot(incremental) solving?")
     config['incremental-mode'] = flag
@@ -321,11 +321,10 @@ def configure(filename):
 @click.argument("instance", nargs=-1)
 @click.option('-c', '--config-file', default='robosanta.json')
 @click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-j', '--javier-planner', is_flag=True, default=False)
 @click.option('-t', '--time-limit-ta', default=60, type=int)
 @click.option('-t', '--time-limit-pf', default=60, type=int)
 
-def solve(instance, config_file, verbose, javier_planner, time_limit_ta, time_limit_pf):
+def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
