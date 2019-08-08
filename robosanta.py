@@ -7,15 +7,8 @@ import clingo
 import click
 from six.moves import input
 
-try:
-    import planner
-    javier_options = {'A': None, 'files': [], 'C': None, 'stats': False, 'move_query': True, 'verbose': False, 'restarts_per_solve': 100, 'force_actions': False, 'check_mem': 0, 'processes': 20, 'propagate_unsat': True, 'start': 0, 'B': None, 'limit': 3000, 'conflicts_per_restart': 60, 'outf': 0, 'forbid_actions': False, 'read_stdin': False, 'constants': [], 'inc': 5}
-    javier_clingo_options = ['--stats']
-    planner_avail = True
-except ImportError:
-    planner_avail = False
-
 RUNSOLVER_PATH = "." + os.sep + "runsolver"
+CLINGO_PATH = "clingo"
 
 class Solver_python(object):
 
@@ -129,7 +122,7 @@ def call_clingo(file_names, time_limit=60, options=[]):
 
     CLINGO = [RUNSOLVER_PATH, "-W", "{}".format(time_limit), \
               "-w", "runsolver.watcher", "-d", "20", 
-              "clingo"] + file_names
+              CLINGO_PATH] + file_names
 
     call = CLINGO + options
 
@@ -201,7 +194,7 @@ class Solver:
     def print_output(self):
         print(self.output)
     
-def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner=False, verbose=False):
+def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner=False, verbose=False, time_limit_ta=60, time_limit_pf=60):
     """
     Solve two times while giving output of first solve to the next one
     :param instance: instance file
@@ -218,11 +211,10 @@ def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner
         printf("Solving Task Assignment...")
         printf()
 
-        solver1 = Solver(instance, stage_one, verbose)
+        solver1 = Solver(instance, stage_one, verbose=verbose, time_limit=time_limit_ta)
         output_atoms = solver1.callSolver(multishot=False, stats_output="stats-TA.json")
 
-        if verbose:
-            solver1.print_output()
+        solver1.print_output()
 
         printf()
         printf("Task Assignment solved, moving on to path finding...")
@@ -230,26 +222,14 @@ def split_solver(instance, stage_one, stage_two, multishot=False, javier_planner
 
 
     printf("Starting Pathfinding...")
-    # planner_avail ensures that javiers planner was imported
-    # if not it just solves normally.
-    # should probably clean this up a bit :/
-    if multishot and javier_planner and planner_avail:
-        javier_options["files"] += stage_two + [instance]
-        solver2 = planner.Planner()
-        solver2.run(javier_options, javier_clingo_options, new_atoms=output_atoms)
-    else:
-        if multishot and javier_planner and not planner_avail:
-            print("Javier's planner is not available. Solving normally...")
-        solver2 = Solver(instance, stage_two, verbose)
-        solver2.add_atoms(output_atoms)
-        solver2.callSolver(multishot=multishot, stats_output="stats-PF.json")
+    solver2 = Solver(instance, stage_two, verbose=verbose, time_limit=time_limit_pf)
+    solver2.add_atoms(output_atoms)
+    solver2.callSolver(multishot=multishot)
 
-    if verbose and not javier_planner:
-        solver2.print_output()
+    solver2.print_output()
 
     printf()
     printf("Path finding solving is done!")
-    printf("Files for stats have been created")
     #return solver1, solver2
 
 
@@ -342,13 +322,17 @@ def configure(filename):
 @click.option('-c', '--config-file', default='robosanta.json')
 @click.option('-v', '--verbose', is_flag=True, default=False)
 @click.option('-j', '--javier-planner', is_flag=True, default=False)
-def solve(instance, config_file, verbose, javier_planner):
+@click.option('-t', '--time-limit-ta', default=60, type=int)
+@click.option('-t', '--time-limit-pf', default=60, type=int)
+
+def solve(instance, config_file, verbose, javier_planner, time_limit_ta, time_limit_pf):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
         config = json.load(f)
     split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
-                 multishot=config['incremental-mode'], javier_planner=javier_planner, verbose=verbose)
+                 multishot=config['incremental-mode'], javier_planner=javier_planner, verbose=verbose, 
+                 time_limit_ta=time_limit_ta, time_limit_pf=time_limit_pf)
 
 
 if __name__ == "__main__":
