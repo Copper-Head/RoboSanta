@@ -1,8 +1,5 @@
-#const horizon = 30.
 timelimit(horizon).
 time(0..horizon). 
-
-#include "./pathfinder_optimization.lp".
 
 %%
 % Actions
