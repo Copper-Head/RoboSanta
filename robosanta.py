@@ -330,7 +330,7 @@ def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
     with open(config_file) as f:
         config = json.load(f)
     split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
-                 multishot=config['incremental-mode'], javier_planner=javier_planner, verbose=verbose, 
+                 multishot=config['incremental-mode'], verbose=verbose, 
                  time_limit_ta=time_limit_ta, time_limit_pf=time_limit_pf)
 
 
