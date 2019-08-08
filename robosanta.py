@@ -8,7 +8,29 @@ import click
 from six.moves import input
 
 RUNSOLVER_PATH = "." + os.sep + "runsolver"
-CLINGO_PATH = "clingo"
+
+
+def _determine_clingo_path():
+    """A quick hack to have clingo work everywhere.
+
+    Ilia's computer is a victim of the compatibility war between
+    pyenv and conda so virtualenvs managed by the latter are messed up.
+    To address that there's a local symlink to the correct clingo version
+    in his repo.
+    For everyone else the normal clingo invocation should work.
+    This function adjusts the clingo path depending on the hostname
+    of the machine the script is running on.
+    Socket module is imported in the function because we don't need it
+    anywhere else.
+    """
+    import socket
+    if socket.gethostname() == "fangorn":
+        return "." + os.sep + "clingo"
+    return "clingo"
+
+
+CLINGO_PATH = _determine_clingo_path()
+
 
 class Solver_python(object):
 
