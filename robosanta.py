@@ -27,6 +27,7 @@ def _determine_clingo_path():
     anywhere else.
     """
     import socket
+
     if socket.gethostname() == "fangorn":
         return "." + os.sep + "clingo"
     return "clingo"
@@ -36,7 +37,6 @@ CLINGO_PATH = _determine_clingo_path()
 
 
 class Solver_python(object):
-
     def __init__(self, instance, encodings, verbose=True):
 
         self.verbose = verbose
@@ -71,14 +71,24 @@ class Solver_python(object):
         self.solved = False
         self.ret = None
 
-        while (self.step < self.imax.number) and\
-                (self.ret is None or (self.istop.string == "SAT" and not self.ret.satisfiable)):
+        while (self.step < self.imax.number) and (
+            self.ret is None
+            or (self.istop.string == "SAT" and not self.ret.satisfiable)
+        ):
 
-            self.control.assign_external(clingo.Function("query", [self.step - 1]), False)
+            self.control.assign_external(
+                clingo.Function("query", [self.step - 1]), False
+            )
 
             if self.grounded == 0 and self.step == 1:
                 self.control.ground(
-                    [("base", []), ("init", []), ("step", [self.step]), ("check", [self.step])])
+                    [
+                        ("base", []),
+                        ("init", []),
+                        ("step", [self.step]),
+                        ("check", [self.step]),
+                    ]
+                )
                 self.grounded = 1
 
             elif self.grounded < self.step:
@@ -110,7 +120,12 @@ class Solver_python(object):
     def stats(self, output_name=None):
         statistics = json.loads(
             json.dumps(
-                self.control.statistics, sort_keys=True, indent=4, separators=(',', ': ')))
+                self.control.statistics,
+                sort_keys=True,
+                indent=4,
+                separators=(",", ": "),
+            )
+        )
 
         self.solvetime = statistics["summary"]["times"]["solve"]
         self.groundtime = statistics["summary"]["times"]["total"] - self.solvetime
@@ -141,13 +156,20 @@ class Solver_python(object):
     def _print(self, *print_args):
         if self.verbose:
             print(*print_args)
-        
+
 
 def call_clingo(file_names, time_limit=60, options=[]):
 
-    CLINGO = [RUNSOLVER_PATH, "-W", "{}".format(time_limit), \
-              "-w", "runsolver.watcher", "-d", "20", 
-              CLINGO_PATH] + file_names
+    CLINGO = [
+        RUNSOLVER_PATH,
+        "-W",
+        "{}".format(time_limit),
+        "-w",
+        "runsolver.watcher",
+        "-d",
+        "20",
+        CLINGO_PATH,
+    ] + file_names
 
     call = CLINGO + options
 
@@ -159,25 +181,24 @@ def call_clingo(file_names, time_limit=60, options=[]):
         output = e.output.decode("utf-8")
 
     print("call has finished\n")
-        
+
     return output
 
 
 class Solver:
-
-    def __init__(self, instance, encodings, time_limit=60, verbose=True):
-        self.instance = list(instance)
+    def __init__(self, instances, encodings, time_limit=60, verbose=True):
+        self.instance = [str(p) for p in instances]
         self.encodings = encodings
         self.time_limit = time_limit
-        
+
         self.verbose = verbose
-        
+
         self.output = None
 
         self.temp = []
 
         self.output_facts = ""
-    
+
     def callSolver(self, multishot=False, stats_output=None):
         if multishot:
             files = self.instance + self.encodings + ["incremental_python.py"]
@@ -186,22 +207,23 @@ class Solver:
 
         self.solve(files + self.temp)
         return self.output_facts
-                
+
     def solve(self, files):
         self.output = call_clingo(files, self.time_limit)
-        
+
         self.parse_best_solution(self.output)
-        
+
     def parse_best_solution(self, output):
         best_solution = ""
         lines = output.split("\n")
         for i, line in enumerate(lines):
             if line.startswith("Answer"):
-                best_solution = lines[i+1]
+                best_solution = lines[i + 1]
 
-        self.output_facts = best_solution.replace(" ", ".\n") + "."#missing dot at the end
+        self.output_facts = (
+            best_solution.replace(" ", ".\n") + "."
+        )  # missing dot at the end
 
-        
     def _print(self, *print_args):
         if self.verbose:
             print(*print_args)
@@ -337,17 +359,19 @@ def cli():
     "-f",
     "--filename",
     help="Name of output configuration file.",
-    default='robosanta.json',
-    show_default=True)
+    default="robosanta.json",
+    show_default=True,
+)
 def configure(filename):
     """Generate configuration file for robosanta."""
 
     config = {}
-    config['modules_stage_one'], config['modules_stage_two'] = choose_modules(
-        parse_modules(load_files("./encodings")))
+    config["modules_stage_one"], config["modules_stage_two"] = choose_modules(
+        parse_modules(load_files("./encodings"))
+    )
 
     flag = click.confirm("multishot(incremental) solving?")
-    config['incremental-mode'] = flag
+    config["incremental-mode"] = flag
 
     with open(filename, "w") as f:
         json.dump(config, f, indent=4)
@@ -355,19 +379,24 @@ def configure(filename):
 
 @cli.command()
 @click.argument("instance", nargs=-1)
-@click.option('-c', '--config-file', default='robosanta.json')
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-t', '--time-limit-ta', default=60, type=int)
-@click.option('-t', '--time-limit-pf', default=60, type=int)
-
+@click.option("-c", "--config-file", default="robosanta.json")
+@click.option("-v", "--verbose", is_flag=True, default=False)
+@click.option("-t", "--time-limit-ta", default=60, type=int)
+@click.option("-t", "--time-limit-pf", default=60, type=int)
 def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
         config = json.load(f)
-    split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
-                 multishot=config['incremental-mode'], verbose=verbose, 
-                 time_limit_ta=time_limit_ta, time_limit_pf=time_limit_pf)
+    split_solver(
+        instance,
+        config["modules_stage_one"],
+        config["modules_stage_two"],
+        multishot=config["incremental-mode"],
+        verbose=verbose,
+        time_limit_ta=time_limit_ta,
+        time_limit_pf=time_limit_pf,
+    )
 
 
 @cli.command()
