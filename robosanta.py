@@ -1,11 +1,14 @@
 from __future__ import print_function
 import json
 import os
+from pathlib import Path
 import subprocess
 
 import clingo
 import click
 from six.moves import input
+
+from tqdm import tqdm
 
 RUNSOLVER_PATH = "." + os.sep + "runsolver"
 
@@ -215,8 +218,17 @@ class Solver:
 
     def print_output(self):
         print(self.output)
-    
-def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False, time_limit_ta=60, time_limit_pf=60):
+
+
+def split_solver(
+    instance,
+    stage_one,
+    stage_two,
+    multishot=False,
+    verbose=False,
+    time_limit_ta=60,
+    time_limit_pf=60,
+):
     """
     Solve two times while giving output of first solve to the next one
     :param instance: instance file
@@ -227,8 +239,9 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False,
     printf = print if verbose else lambda *a: None
 
     output_atoms = ""
+    stage_solvers = []
     # only solve TA if there are files in stage one
-    if len(stage_one) > 0:
+    if stage_one:
         printf()
         printf("Solving Task Assignment...")
         printf()
@@ -241,7 +254,7 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False,
         printf()
         printf("Task Assignment solved, moving on to path finding...")
         printf()
-
+        stage_solvers.append(solver1)
 
     printf("Starting Pathfinding...")
     solver2 = Solver(instance, stage_two, verbose=verbose, time_limit=time_limit_pf)
@@ -252,7 +265,8 @@ def split_solver(instance, stage_one, stage_two, multishot=False, verbose=False,
 
     printf()
     printf("Path finding solving is done!")
-    #return solver1, solver2
+    stage_solvers.append(solver2)
+    return stage_solvers
 
 
 def load_files(path, extension=".lp"):
@@ -354,6 +368,47 @@ def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
     split_solver(instance, config['modules_stage_one'], config['modules_stage_two'],
                  multishot=config['incremental-mode'], verbose=verbose, 
                  time_limit_ta=time_limit_ta, time_limit_pf=time_limit_pf)
+
+
+@cli.command()
+@click.argument("config_path")
+@click.argument("instances_dir")
+@click.argument("stats_dir")
+def experiment(config_path, instances_dir, stats_dir):
+    """Run some experiments and record the stats."""
+
+    stats_dir = Path(stats_dir)
+    stats_dir.mkdir(parents=True, exist_ok=True)
+
+    for instance_path in tqdm(list(Path(instances_dir).rglob("*.lp"))):
+        # For reference on how asprilo instances_dir are structured:
+        # https://github.com/potassco/asprilo/blob/master/docs/experiments.md#minimal-horizon-and-task-assignment
+        instance_facts = [
+            # This is the instance itself.
+            instance_path,
+            # This is the corresponding minimal horizon.
+            instance_path.with_suffix(".lp__hor-a"),
+        ]
+        # Using tqdm instead of printing keeps the progress bar uninterrupted.
+        tqdm.write(f"Solving instance: {instance_path.stem}")
+        with open(config_path) as f:
+            config = json.load(f)
+
+        solvers = split_solver(
+            instance_facts,
+            config["modules_stage_one"],
+            config["modules_stage_two"],
+            verbose=True,
+            time_limit_ta=1800,
+            time_limit_pf=1800,
+        )
+        tqdm.write("Finished")
+        for solver, part in zip(solvers, ["pt1", "pt2"]):
+            stats_path = stats_dir / instance_path.with_suffix(f".{part}.stats").name
+            with stats_path.open("w") as stats_file:
+                # For now this writes whole output without parsing anything.
+                stats_file.write(solver.output)
+            tqdm.write(f"Done writing to {stats_path}")
 
 
 if __name__ == "__main__":
