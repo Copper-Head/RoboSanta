@@ -158,7 +158,7 @@ class Solver_python(object):
             print(*print_args)
 
 
-def call_clingo(file_names, time_limit=60, options=[]):
+def call_clingo(file_names, time_limit=60, options=None):
 
     CLINGO = [
         RUNSOLVER_PATH,
@@ -171,7 +171,7 @@ def call_clingo(file_names, time_limit=60, options=[]):
         CLINGO_PATH,
     ] + file_names
 
-    call = CLINGO + options
+    call = CLINGO + ([] if options is None else options)
 
     print("calling: " + " ".join(call))
 
@@ -199,17 +199,17 @@ class Solver:
 
         self.output_facts = ""
 
-    def callSolver(self, multishot=False, stats_output=None):
+    def callSolver(self, multishot=False, stats_output=None, options=None):
         if multishot:
             files = self.instance + self.encodings + ["incremental_python.py"]
         else:
             files = self.instance + self.encodings
 
-        self.solve(files + self.temp)
+        self.solve(files + self.temp, options)
         return self.output_facts
 
-    def solve(self, files):
-        self.output = call_clingo(files, self.time_limit)
+    def solve(self, files, options):
+        self.output = call_clingo(files, self.time_limit, options=options)
 
         self.parse_best_solution(self.output)
 
@@ -250,6 +250,7 @@ def split_solver(
     verbose=False,
     time_limit_ta=60,
     time_limit_pf=60,
+    options=None,
 ):
     """
     Solve two times while giving output of first solve to the next one
@@ -269,7 +270,9 @@ def split_solver(
         printf()
 
         solver1 = Solver(instance, stage_one, verbose=verbose, time_limit=time_limit_ta)
-        output_atoms = solver1.callSolver(multishot=False, stats_output="stats-TA.json")
+        output_atoms = solver1.callSolver(
+            multishot=False, stats_output="stats-TA.json", options=options
+        )
 
         solver1.print_output()
 
@@ -281,7 +284,7 @@ def split_solver(
     printf("Starting Pathfinding...")
     solver2 = Solver(instance, stage_two, verbose=verbose, time_limit=time_limit_pf)
     solver2.add_atoms(output_atoms)
-    solver2.callSolver(multishot=multishot)
+    solver2.callSolver(multishot=multishot, options=options)
 
     solver2.print_output()
 
@@ -378,12 +381,15 @@ def configure(filename):
 
 
 @cli.command()
-@click.argument("instance", nargs=-1)
+@click.argument("instance")
+# To pass clingo options specify all the arguments then type a space followed by "--".
+# Then another space and then whatever clingo options you would like to pass
+@click.argument("clingo_options", nargs=-1)
 @click.option("-c", "--config-file", default="robosanta.json")
 @click.option("-v", "--verbose", is_flag=True, default=False)
 @click.option("-t", "--time-limit-ta", default=60, type=int)
 @click.option("-t", "--time-limit-pf", default=60, type=int)
-def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
+def solve(instance, clingo_options, config_file, verbose, time_limit_ta, time_limit_pf):
     """Solve instance with some configuration."""
 
     with open(config_file) as f:
@@ -396,6 +402,7 @@ def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
         verbose=verbose,
         time_limit_ta=time_limit_ta,
         time_limit_pf=time_limit_pf,
+        options=list(clingo_options),
     )
 
 
@@ -403,7 +410,10 @@ def solve(instance, config_file, verbose, time_limit_ta, time_limit_pf):
 @click.argument("config_path")
 @click.argument("instances_dir")
 @click.argument("stats_dir")
-def experiment(config_path, instances_dir, stats_dir):
+# To pass clingo options specify all the arguments then type a space followed by "--".
+# Then another space and then whatever clingo options you would like to pass
+@click.argument("clingo_options", nargs=-1)
+def experiment(config_path, instances_dir, stats_dir, clingo_options):
     """Run some experiments and record the stats."""
 
     stats_dir = Path(stats_dir)
@@ -430,6 +440,7 @@ def experiment(config_path, instances_dir, stats_dir):
             verbose=True,
             time_limit_ta=1800,
             time_limit_pf=1800,
+            options=list(clingo_options),
         )
         tqdm.write("Finished")
         for solver, part in zip(solvers, ["pt1", "pt2"]):
