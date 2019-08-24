@@ -419,15 +419,17 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
     stats_dir = Path(stats_dir)
     stats_dir.mkdir(parents=True, exist_ok=True)
 
+    horizon_option_present = any("horizon" in option for option in clingo_options)
+
     for instance_path in tqdm(list(Path(instances_dir).rglob("*.lp"))):
         # For reference on how asprilo instances_dir are structured:
         # https://github.com/potassco/asprilo/blob/master/docs/experiments.md#minimal-horizon-and-task-assignment
-        instance_facts = [
-            # This is the instance itself.
-            instance_path,
+        # This is the instance itself.
+        instance_facts = [instance_path]
+        if not horizon_option_present:
             # This is the corresponding minimal horizon.
-            instance_path.with_suffix(".lp__hor-a"),
-        ]
+            # Passing a horizon globally as a clingo option will override this.
+            instance_facts.append(instance_path.with_suffix(".lp__hor-a"))
         # Using tqdm instead of printing keeps the progress bar uninterrupted.
         tqdm.write(f"Solving instance: {instance_path.stem}")
         with open(config_path) as f:
