@@ -432,7 +432,14 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
         if not horizon_option_present:
             # This is the corresponding minimal horizon.
             # Passing a horizon globally as a clingo option will override this.
-            instance_facts.append(instance_path.with_suffix(".lp__hor-a"))
+            if os.path.isfile(instance_path.with_suffix(".lp__hor-a")):
+                instance_facts.append(instance_path.with_suffix(".lp__hor-a"))
+            elif os.path.isfile(instance_path.with_suffix(".lp__hor-aa")):
+                instance_facts.append(instance_path.with_suffix(".lp__hor-aa"))
+            else:
+                print("Horizon file does not exist!")
+                import sys
+                sys.exit(-1)
         # Using tqdm instead of printing keeps the progress bar uninterrupted.
         tqdm.write(f"Solving instance: {instance_path.stem}")
         with open(config_path) as f:
@@ -443,7 +450,7 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             config["modules_stage_one"],
             config["modules_stage_two"],
             verbose=True,
-            time_limit_ta=1800,
+            time_limit_ta=60,
             time_limit_pf=1800,
             options=list(clingo_options),
         )
