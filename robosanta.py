@@ -187,7 +187,10 @@ def call_clingo(file_names, time_limit=60, options=None):
 
 class Solver:
     def __init__(self, instances, encodings, time_limit=60, verbose=True):
-        self.instance = [str(p) for p in instances]
+        if type(instances) == list:
+            self.instance = [str(p) for p in instances]
+        else:
+            self.instance = [instances]
         self.encodings = encodings
         self.time_limit = time_limit
 
