@@ -61,6 +61,8 @@ We also could minimize the required energy of all robots by taking the sum of al
      Not sure I understood the heuristics.
 
      also, what is considered as "obstructed"?
+     
+     - obstructed is a robot in the path of another robot or a shelf in the path of another shelf
 
 *** path finding
     something here by klaus
@@ -72,8 +74,11 @@ We also could minimize the required energy of all robots by taking the sum of al
 * Method
   The purpose of this section (and the following one) is to make it possible for the reader to reproduce our experiments.
 
-  We could consider merging these sections together into "Experiments"
-
+  We could consider merging these sections together into "Experiments".
+  (David) usually splits Methods and Experiments in the following way (I am obviously open for discussion on this).
+  - Methods is a theoretical description of how we solved the task (e.g. what I wrote on path finding so far)
+  - Experiments is the practical manifestation of the theory (mainly the instances we tested and how we tested them (e.g. comparison with baseline))
+  
   It's important to have a setup that makes it easy for anyone to reproduce our shit.
   That's really the main point of the whole project, to generate usable knowledge
 ** describe metrics tracked
