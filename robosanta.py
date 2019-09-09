@@ -424,6 +424,11 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
 
     horizon_option_present = any("horizon" in option for option in clingo_options)
 
+    def get_horizon(filename):
+        with open(filename, "r") as f:
+            data = f.readline()
+            return int(''.join(filter(str.isdigit, data)))
+
     for instance_path in tqdm(list(Path(instances_dir).rglob("*.lp"))):
         # For reference on how asprilo instances_dir are structured:
         # https://github.com/potassco/asprilo/blob/master/docs/experiments.md#minimal-horizon-and-task-assignment
@@ -433,18 +438,22 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             # This is the corresponding minimal horizon.
             # Passing a horizon globally as a clingo option will override this.
             if os.path.isfile(instance_path.with_suffix(".lp__hor-a")):
-                instance_facts.append(instance_path.with_suffix(".lp__hor-a"))
+                horizon = get_horizon(instance_path.with_suffix(".lp__hor-a"))
             elif os.path.isfile(instance_path.with_suffix(".lp__hor-aa")):
-                instance_facts.append(instance_path.with_suffix(".lp__hor-aa"))
+                horizon = get_horizon(instance_path.with_suffix(".lp__hor-aa"))
             else:
                 print("Horizon file does not exist!")
-                import sys
-                sys.exit(-1)
+                raise SystemExit
+            if any("extension" in option for option in clingo_options):
+                horizon += 5
+
         # Using tqdm instead of printing keeps the progress bar uninterrupted.
         tqdm.write(f"Solving instance: {instance_path.stem}")
         with open(config_path) as f:
             config = json.load(f)
 
+        # Here I haven't worked out how to pass horizon to the clingo_options
+        # Then this should solve with longer horizon
         solvers = split_solver(
             instance_facts,
             config["modules_stage_one"],
