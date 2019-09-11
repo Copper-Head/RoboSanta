@@ -444,8 +444,8 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             else:
                 print("Horizon file does not exist!")
                 raise SystemExit
-            #sensible if statement for extending the horizon
-            #    horizon += 5
+            # TODO: sensible if statement for extending the horizon
+            horizon += 5
 
         # Using tqdm instead of printing keeps the progress bar uninterrupted.
         tqdm.write(f"Solving instance: {instance_path.stem}")
