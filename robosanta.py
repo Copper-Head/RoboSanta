@@ -444,16 +444,18 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             else:
                 print("Horizon file does not exist!")
                 raise SystemExit
-            if any("extension" in option for option in clingo_options):
-                horizon += 5
+            #sensible if statement for extending the horizon
+            #    horizon += 5
 
         # Using tqdm instead of printing keeps the progress bar uninterrupted.
         tqdm.write(f"Solving instance: {instance_path.stem}")
         with open(config_path) as f:
             config = json.load(f)
 
-        # Here I haven't worked out how to pass horizon to the clingo_options
-        # Then this should solve with longer horizon
+        clingo_options = list(clingo_options)
+        if not horizon_option_present:
+            clingo_options.append(f"-c horizon={horizon}")
+
         solvers = split_solver(
             instance_facts,
             config["modules_stage_one"],
@@ -461,7 +463,7 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             verbose=True,
             time_limit_ta=60,
             time_limit_pf=1800,
-            options=list(clingo_options),
+            options=clingo_options,
         )
         tqdm.write("Finished")
         for solver, part in zip(solvers, ["pt1", "pt2"]):
