@@ -4,7 +4,7 @@
 %% limit delivery actions
 
 % task is completed if the right robot delivers the shelf to the right picking station
-done(task(R, S, Pi), T) :- delivered(R, O, P, Pi, T), holds(carry(R, S), T), assign(R, S, Pi).
+done(task(R, S, station(Pi)), T) :- delivered(R, O, P, pickingStation(Pi), T), holds(carry(R, S), T), assign(R, S, station(Pi)).
 
 % remove answer if task was not fulfilled
 :- assign(R, S, Pi), not done(task(R, S, Pi), T) : time(T).
