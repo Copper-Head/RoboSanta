@@ -17,5 +17,5 @@ robot_shelves(robot(R), Z) :- #count{S : pairing(S, robot(R))} = Z, robot(R).
 :- shelf_delivery_sequence(O1, S, M-1), shelf_delivery_sequence(O2, S, M), shelf_delivery_sequence(O3, S, N), target(O1,PS1), target(O2,PS2), target(O3,PS1), PS1!=PS2, N>M.
 
 %show assignment like asprilo
-assign(R, S, P) :- delivery(O, S), target(O, P), pairing(S, R).
+assign(R, S, pickingStation(P)) :- delivery(O, S), target(O, station(P)), pairing(S, R).
 #show assign/3.
