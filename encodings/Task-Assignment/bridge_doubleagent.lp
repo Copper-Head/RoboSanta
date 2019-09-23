@@ -22,11 +22,8 @@ done(task(O,S,N),T) :- sdelivered(R, O, T), holds(carry(R,S),T), shelf_delivery_
 :- done(task(O1,S1,N),T1), done(task(O2,S1,N-1),T2), T2 > T1, N > 1, time(T1), time(T2).
 
 % remove answer if task was not fulfilled
-:- shelf_delivery_sequence(O,S,N), not done(task(O,S,N),T) : time(T).
+:- shelf_delivery_sequence(O,S,N), {done(task(O,S,N),T) : time(T)}0.
 #show done/2.
-
-% only fulfill task once
-:- 2{done(task(O,S,N),T) : time(T)}, shelf_delivery_sequence(O,S,N).
 
 % robot can only 'deliver' the shelves in the correct sequence
 last_delivery(R,S,T) :- robot_to_shelf(R,S), shelf_last_delivery(S, N) , done(task(O,S,N),T).
