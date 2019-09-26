@@ -413,10 +413,11 @@ def solve(instance, clingo_options, config_file, verbose, time_limit_ta, time_li
 @click.argument("config_path")
 @click.argument("instances_dir")
 @click.argument("stats_dir")
+@click.argument("extend_horizon", default=0, type=int)
 # To pass clingo options specify all the arguments then type a space followed by "--".
 # Then another space and then whatever clingo options you would like to pass
 @click.argument("clingo_options", nargs=-1)
-def experiment(config_path, instances_dir, stats_dir, clingo_options):
+def experiment(config_path, instances_dir, stats_dir, extend_horizon, clingo_options):
     """Run some experiments and record the stats."""
 
     stats_dir = Path(stats_dir)
@@ -429,6 +430,7 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             data = f.readline()
             return int(''.join(filter(str.isdigit, data)))
 
+    print(len(list(Path(instances_dir).rglob("*.lp"))))
     for instance_path in tqdm(list(Path(instances_dir).rglob("*.lp"))):
         # For reference on how asprilo instances_dir are structured:
         # https://github.com/potassco/asprilo/blob/master/docs/experiments.md#minimal-horizon-and-task-assignment
@@ -445,7 +447,9 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
                 print("Horizon file does not exist!")
                 raise SystemExit
             # TODO: sensible if statement for extending the horizon
-            horizon += 5
+            if extend_horizon != 0:
+                print("Extending horizon by {}".format(extend_horizon))
+            horizon += extend_horizon
 
         # Using tqdm instead of printing keeps the progress bar uninterrupted.
         tqdm.write(f"Solving instance: {instance_path.stem}")
@@ -461,7 +465,7 @@ def experiment(config_path, instances_dir, stats_dir, clingo_options):
             config["modules_stage_one"],
             config["modules_stage_two"],
             verbose=True,
-            time_limit_ta=60,
+            time_limit_ta=300,
             time_limit_pf=1800,
             options=clingo_options,
         )
