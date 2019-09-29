@@ -1,0 +1,42 @@
+clingo version 5.3.0
+Reading from ..._y6_n66_r5_s16_ps1_pr16_u16_o5_N009.lp ...
+Solving...
+Answer: 6
+shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(1),1) shelf_last_delivery(shelf(10),1) shelf_last_delivery(shelf(12),1) shelf_last_delivery(shelf(14),1) shelf_last_delivery(shelf(15),1) shelf_delivery_sequence(order(1),shelf(1),1) shelf_delivery_sequence(order(2),shelf(12),1) shelf_delivery_sequence(order(3),shelf(15),1) shelf_delivery_sequence(order(4),shelf(10),1) robot_shelf_sequence(shelf(10),robot(1),1) shelf_delivery_sequence(order(5),shelf(14),1) robot_shelf_sequence(shelf(1),robot(3),2) robot_shelf_sequence(shelf(15),robot(3),1) robot_shelf_sequence(shelf(14),robot(4),1) robot_shelf_sequence(shelf(12),robot(5),1) assign(robot(3),shelf(1),station(1)) assign(robot(5),shelf(12),station(1)) assign(robot(3),shelf(15),station(1)) assign(robot(1),shelf(10),station(1)) assign(robot(4),shelf(14),station(1))
+Optimization: 7
+OPTIMUM FOUND
+
+Models       : 6
+  Optimum    : yes
+Optimization : 7
+Calls        : 1
+Time         : 0.133s (Solving: 0.10s 1st Model: 0.00s Unsat: 0.03s)
+CPU Time     : 0.128s
+
+Choices      : 3563    
+Conflicts    : 2443     (Analyzed: 2442)
+Restarts     : 16       (Average: 152.62 Last: 15)
+Model-Level  : 8.3     
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 2442     (Deleted: 0)
+  Binary     : 174      (Ratio:   7.13%)
+  Ternary    : 185      (Ratio:   7.58%)
+  Conflict   : 2442     (Average Length:   17.8 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 2442     (Average:  1.43 Max:  38 Sum:   3484)
+  Executed   : 2442     (Average:  1.43 Max:  38 Sum:   3484 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 6348     (Original: 5053)
+  Choice     : 145     
+  Minimize   : 1       
+Atoms        : 1538    
+Bodies       : 2624     (Original: 2359)
+  Sum        : 0        (Original: 120)
+  Count      : 0        (Original: 235)
+Equivalences : 1168     (Atom=Atom: 100 Body=Body: 95 Other: 973)
+Tight        : Yes
+Variables    : 2336     (Eliminated:    0 Frozen:   33)
+Constraints  : 10656    (Binary:  79.2% Ternary:  15.0% Other:   5.8%)
+

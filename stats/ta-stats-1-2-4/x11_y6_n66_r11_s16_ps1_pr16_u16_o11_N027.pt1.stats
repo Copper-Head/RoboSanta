@@ -1,0 +1,43 @@
+clingo version 5.3.0
+Reading from ...6_n66_r11_s16_ps1_pr16_u16_o11_N027.lp ...
+Solving...
+Answer: 20
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(2),1) shelf_last_delivery(shelf(3),1) shelf_last_delivery(shelf(5),1) shelf_last_delivery(shelf(6),1) shelf_last_delivery(shelf(7),1) shelf_last_delivery(shelf(8),1) shelf_last_delivery(shelf(9),1) shelf_last_delivery(shelf(12),1) shelf_last_delivery(shelf(13),1) shelf_last_delivery(shelf(14),1) shelf_last_delivery(shelf(15),1) shelf_delivery_sequence(order(1),shelf(9),1) shelf_delivery_sequence(order(2),shelf(5),1) shelf_delivery_sequence(order(3),shelf(14),1) shelf_delivery_sequence(order(4),shelf(8),1) shelf_delivery_sequence(order(5),shelf(7),1) shelf_delivery_sequence(order(6),shelf(6),1) shelf_delivery_sequence(order(7),shelf(13),1) shelf_delivery_sequence(order(8),shelf(12),1) shelf_delivery_sequence(order(9),shelf(15),1) shelf_delivery_sequence(order(10),shelf(2),1) shelf_delivery_sequence(order(11),shelf(3),1) robot_shelf_sequence(shelf(3),robot(1),1) robot_shelf_sequence(shelf(15),robot(2),1) robot_shelf_sequence(shelf(7),robot(3),1) robot_shelf_sequence(shelf(8),robot(4),1) robot_shelf_sequence(shelf(2),robot(5),2) robot_shelf_sequence(shelf(13),robot(5),1) robot_shelf_sequence(shelf(6),robot(7),1) robot_shelf_sequence(shelf(14),robot(8),1) robot_shelf_sequence(shelf(12),robot(9),1) robot_shelf_sequence(shelf(5),robot(9),2) robot_shelf_sequence(shelf(9),robot(10),1) assign(robot(10),shelf(9),station(1)) assign(robot(9),shelf(5),station(1)) assign(robot(8),shelf(14),station(1)) assign(robot(4),shelf(8),station(1)) assign(robot(3),shelf(7),station(1)) assign(robot(7),shelf(6),station(1)) assign(robot(5),shelf(13),station(1)) assign(robot(9),shelf(12),station(1)) assign(robot(2),shelf(15),station(1)) assign(robot(5),shelf(2),station(1)) assign(robot(1),shelf(3),station(1))
+Optimization: 5
+SATISFIABLE
+
+INTERRUPTED  : 1
+Models       : 20+
+  Optimum    : unknown
+Optimization : 5
+Calls        : 1
+Time         : 299.970s (Solving: 299.80s 1st Model: 0.02s Unsat: 0.00s)
+CPU Time     : 299.952s
+
+Choices      : 2296990 
+Conflicts    : 1803085  (Analyzed: 1803084)
+Restarts     : 4092     (Average: 440.64 Last: 1789734)
+Model-Level  : 87.3    
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 1803084  (Deleted: 1717894)
+  Binary     : 1857     (Ratio:   0.10%)
+  Ternary    : 2243     (Ratio:   0.12%)
+  Conflict   : 1803084  (Average Length:   36.7 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 1803084  (Average:  1.20 Max: 1279 Sum: 2157186)
+  Executed   : 1803084  (Average:  1.20 Max: 1279 Sum: 2157186 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 58294    (Original: 45787)
+  Choice     : 1375    
+  Minimize   : 1       
+Atoms        : 8925    
+Bodies       : 33481    (Original: 32172)
+  Sum        : 0        (Original: 418)
+  Count      : 715      (Original: 2464)
+Equivalences : 8509     (Atom=Atom: 451 Body=Body: 336 Other: 7722)
+Tight        : Yes
+Variables    : 25824    (Eliminated:    0 Frozen: 2204)
+Constraints  : 113248   (Binary:  77.4% Ternary:  18.6% Other:   3.9%)
+

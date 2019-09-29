@@ -1,0 +1,35 @@
+clingo version 5.3.0
+Reading from ..._n171_r10_s60_ps3_pr60_u60_o10_N001.lp ...
+Solving...
+UNKNOWN
+
+INTERRUPTED  : 1
+Models       : 0+
+Calls        : 1
+Time         : 1799.970s (Solving: 1707.45s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 1799.876s
+
+Choices      : 14406807
+Conflicts    : 64738    (Analyzed: 64738)
+Restarts     : 180      (Average: 359.66 Last: 64685)
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 64738    (Deleted: 48971)
+  Binary     : 3323     (Ratio:   5.13%)
+  Ternary    : 4763     (Ratio:   7.36%)
+  Conflict   : 64738    (Average Length:  867.5 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 64738    (Average: 216.73 Max: 37914 Sum: 14030698)
+  Executed   : 64738    (Average: 216.73 Max: 37914 Sum: 14030698 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 15898645 (Original: 15887789)
+  Choice     : 450     
+Atoms        : 963340  
+Bodies       : 11975429 (Original: 11964851)
+  Count      : 15343    (Original: 16433)
+Equivalences : 557843   (Atom=Atom: 95374 Body=Body: 2105 Other: 460364)
+Tight        : Yes
+Variables    : 11697147 (Eliminated:    0 Frozen: 445844)
+Constraints  : 55293912 (Binary:  77.4% Ternary:   7.4% Other:  15.2%)
+

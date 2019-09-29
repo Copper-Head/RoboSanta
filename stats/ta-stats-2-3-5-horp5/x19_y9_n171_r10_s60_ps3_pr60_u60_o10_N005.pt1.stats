@@ -1,0 +1,43 @@
+clingo version 5.3.0
+Reading from ..._n171_r10_s60_ps3_pr60_u60_o10_N005.lp ...
+Solving...
+Answer: 31
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(12),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(15),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(17),0) shelf_last_delivery(shelf(18),0) shelf_last_delivery(shelf(19),0) shelf_last_delivery(shelf(20),0) shelf_last_delivery(shelf(21),0) shelf_last_delivery(shelf(22),0) shelf_last_delivery(shelf(23),0) shelf_last_delivery(shelf(24),0) shelf_last_delivery(shelf(30),0) shelf_last_delivery(shelf(31),0) shelf_last_delivery(shelf(32),0) shelf_last_delivery(shelf(33),0) shelf_last_delivery(shelf(34),0) shelf_last_delivery(shelf(35),0) shelf_last_delivery(shelf(36),0) shelf_last_delivery(shelf(37),0) shelf_last_delivery(shelf(38),0) shelf_last_delivery(shelf(39),0) shelf_last_delivery(shelf(40),0) shelf_last_delivery(shelf(41),0) shelf_last_delivery(shelf(42),0) shelf_last_delivery(shelf(43),0) shelf_last_delivery(shelf(44),0) shelf_last_delivery(shelf(45),0) shelf_last_delivery(shelf(46),0) shelf_last_delivery(shelf(47),0) shelf_last_delivery(shelf(48),0) shelf_last_delivery(shelf(49),0) shelf_last_delivery(shelf(50),0) shelf_last_delivery(shelf(51),0) shelf_last_delivery(shelf(52),0) shelf_last_delivery(shelf(53),0) shelf_last_delivery(shelf(54),0) shelf_last_delivery(shelf(57),0) shelf_last_delivery(shelf(60),0) shelf_last_delivery(shelf(3),1) shelf_last_delivery(shelf(25),1) shelf_last_delivery(shelf(26),1) shelf_last_delivery(shelf(27),1) shelf_last_delivery(shelf(28),1) shelf_last_delivery(shelf(29),1) shelf_last_delivery(shelf(55),1) shelf_last_delivery(shelf(56),1) shelf_last_delivery(shelf(58),1) shelf_last_delivery(shelf(59),1) robot_shelf_sequence(shelf(3),robot(1),2) shelf_delivery_sequence(order(1),shelf(29),1) shelf_delivery_sequence(order(2),shelf(27),1) robot_shelf_sequence(shelf(27),robot(1),1) shelf_delivery_sequence(order(3),shelf(58),1) shelf_delivery_sequence(order(4),shelf(28),1) shelf_delivery_sequence(order(5),shelf(3),1) shelf_delivery_sequence(order(6),shelf(26),1) shelf_delivery_sequence(order(7),shelf(59),1) shelf_delivery_sequence(order(8),shelf(56),1) shelf_delivery_sequence(order(9),shelf(55),1) shelf_delivery_sequence(order(10),shelf(25),1) robot_shelf_sequence(shelf(26),robot(2),1) robot_shelf_sequence(shelf(25),robot(4),1) robot_shelf_sequence(shelf(29),robot(5),1) robot_shelf_sequence(shelf(56),robot(6),1) robot_shelf_sequence(shelf(58),robot(7),1) robot_shelf_sequence(shelf(28),robot(8),1) robot_shelf_sequence(shelf(55),robot(9),1) robot_shelf_sequence(shelf(59),robot(10),1) assign(robot(5),shelf(29),station(3)) assign(robot(1),shelf(27),station(3)) assign(robot(7),shelf(58),station(3)) assign(robot(8),shelf(28),station(3)) assign(robot(1),shelf(3),station(3)) assign(robot(2),shelf(26),station(3)) assign(robot(10),shelf(59),station(3)) assign(robot(6),shelf(56),station(3)) assign(robot(9),shelf(55),station(3)) assign(robot(4),shelf(25),station(3))
+Optimization: 13
+SATISFIABLE
+
+INTERRUPTED  : 1
+Models       : 31+
+  Optimum    : unknown
+Optimization : 13
+Calls        : 1
+Time         : 299.976s (Solving: 299.77s 1st Model: 0.02s Unsat: 0.00s)
+CPU Time     : 299.932s
+
+Choices      : 2276627 
+Conflicts    : 1730593  (Analyzed: 1730593)
+Restarts     : 3961     (Average: 436.91 Last: 1730455)
+Model-Level  : 122.8   
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 1730593  (Deleted: 1683302)
+  Binary     : 861      (Ratio:   0.05%)
+  Ternary    : 1706     (Ratio:   0.10%)
+  Conflict   : 1730593  (Average Length:   40.8 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 1730593  (Average:  1.24 Max: 782 Sum: 2149524)
+  Executed   : 1730593  (Average:  1.24 Max: 782 Sum: 2149524 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 100762   (Original: 92852)
+  Choice     : 1040    
+  Minimize   : 1       
+Atoms        : 10051   
+Bodies       : 31410    (Original: 30180)
+  Sum        : 800     
+  Count      : 490      (Original: 1840)
+Equivalences : 9994     (Atom=Atom: 1050 Body=Body: 295 Other: 8649)
+Tight        : Yes
+Variables    : 25892    (Eliminated:    0 Frozen: 2583)
+Constraints  : 156484   (Binary:  83.6% Ternary:  13.6% Other:   2.8%)
+

@@ -1,0 +1,43 @@
+clingo version 5.3.0
+Reading from ...6_n66_r11_s16_ps1_pr16_u16_o11_N009.lp ...
+Solving...
+Answer: 11
+shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(1),1) shelf_last_delivery(shelf(3),1) shelf_last_delivery(shelf(4),1) shelf_last_delivery(shelf(7),1) shelf_last_delivery(shelf(8),1) shelf_last_delivery(shelf(9),1) shelf_last_delivery(shelf(11),1) shelf_last_delivery(shelf(12),1) shelf_last_delivery(shelf(13),1) shelf_last_delivery(shelf(15),1) shelf_last_delivery(shelf(16),1) shelf_delivery_sequence(order(1),shelf(4),1) shelf_delivery_sequence(order(2),shelf(15),1) shelf_delivery_sequence(order(3),shelf(1),1) robot_shelf_sequence(shelf(1),robot(1),1) shelf_delivery_sequence(order(4),shelf(3),1) shelf_delivery_sequence(order(5),shelf(7),1) shelf_delivery_sequence(order(6),shelf(12),1) shelf_delivery_sequence(order(7),shelf(8),1) shelf_delivery_sequence(order(8),shelf(13),1) shelf_delivery_sequence(order(9),shelf(9),1) shelf_delivery_sequence(order(10),shelf(16),1) shelf_delivery_sequence(order(11),shelf(11),1) robot_shelf_sequence(shelf(8),robot(2),1) robot_shelf_sequence(shelf(11),robot(3),1) robot_shelf_sequence(shelf(9),robot(4),1) robot_shelf_sequence(shelf(16),robot(6),1) robot_shelf_sequence(shelf(4),robot(6),2) robot_shelf_sequence(shelf(3),robot(6),3) robot_shelf_sequence(shelf(13),robot(7),1) robot_shelf_sequence(shelf(12),robot(8),1) robot_shelf_sequence(shelf(15),robot(9),1) robot_shelf_sequence(shelf(7),robot(11),1) assign(robot(6),shelf(4),station(1)) assign(robot(9),shelf(15),station(1)) assign(robot(1),shelf(1),station(1)) assign(robot(6),shelf(3),station(1)) assign(robot(11),shelf(7),station(1)) assign(robot(8),shelf(12),station(1)) assign(robot(2),shelf(8),station(1)) assign(robot(7),shelf(13),station(1)) assign(robot(4),shelf(9),station(1)) assign(robot(6),shelf(16),station(1)) assign(robot(3),shelf(11),station(1))
+Optimization: 5
+SATISFIABLE
+
+INTERRUPTED  : 1
+Models       : 11+
+  Optimum    : unknown
+Optimization : 5
+Calls        : 1
+Time         : 299.977s (Solving: 299.80s 1st Model: 0.02s Unsat: 0.00s)
+CPU Time     : 299.948s
+
+Choices      : 2245788 
+Conflicts    : 1833968  (Analyzed: 1833968)
+Restarts     : 4094     (Average: 447.96 Last: 1784847)
+Model-Level  : 116.7   
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 1833968  (Deleted: 1736420)
+  Binary     : 1075     (Ratio:   0.06%)
+  Ternary    : 1247     (Ratio:   0.07%)
+  Conflict   : 1833968  (Average Length:   38.0 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 1833968  (Average:  1.16 Max: 2023 Sum: 2119408)
+  Executed   : 1833968  (Average:  1.16 Max: 2023 Sum: 2119408 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 58316    (Original: 45809)
+  Choice     : 1375    
+  Minimize   : 1       
+Atoms        : 8939    
+Bodies       : 33495    (Original: 32186)
+  Sum        : 0        (Original: 418)
+  Count      : 715      (Original: 2464)
+Equivalences : 8530     (Atom=Atom: 451 Body=Body: 337 Other: 7742)
+Tight        : Yes
+Variables    : 25832    (Eliminated:    0 Frozen: 2204)
+Constraints  : 113272   (Binary:  77.4% Ternary:  18.6% Other:   3.9%)
+

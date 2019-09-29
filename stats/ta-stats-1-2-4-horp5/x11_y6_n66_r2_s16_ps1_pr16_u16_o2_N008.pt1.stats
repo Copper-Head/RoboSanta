@@ -1,0 +1,42 @@
+clingo version 5.3.0
+Reading from ..._y6_n66_r2_s16_ps1_pr16_u16_o2_N008.lp ...
+Solving...
+Answer: 1
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(12),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(15),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(2),1) shelf_last_delivery(shelf(14),1) shelf_delivery_sequence(order(1),shelf(2),1) robot_shelf_sequence(shelf(2),robot(1),1) shelf_delivery_sequence(order(2),shelf(14),1) robot_shelf_sequence(shelf(14),robot(2),1) assign(robot(1),shelf(2),station(1)) assign(robot(2),shelf(14),station(1))
+Optimization: 9
+OPTIMUM FOUND
+
+Models       : 1
+  Optimum    : yes
+Optimization : 9
+Calls        : 1
+Time         : 0.018s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.012s
+
+Choices      : 33      
+Conflicts    : 22       (Analyzed: 21)
+Restarts     : 0       
+Model-Level  : 5.0     
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 21       (Deleted: 0)
+  Binary     : 5        (Ratio:  23.81%)
+  Ternary    : 6        (Ratio:  28.57%)
+  Conflict   : 21       (Average Length:    2.9 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 21       (Average:  1.52 Max:   5 Sum:     32)
+  Executed   : 21       (Average:  1.52 Max:   5 Sum:     32 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 618      (Original: 604)
+  Choice     : 16      
+  Minimize   : 1       
+Atoms        : 459     
+Bodies       : 139      (Original: 141)
+  Sum        : 0        (Original: 4)
+  Count      : 0        (Original: 14)
+Equivalences : 167      (Atom=Atom: 30 Body=Body: 24 Other: 113)
+Tight        : Yes
+Variables    : 112      (Eliminated:    0 Frozen:   19)
+Constraints  : 386      (Binary:  75.6% Ternary:  20.2% Other:   4.1%)
+

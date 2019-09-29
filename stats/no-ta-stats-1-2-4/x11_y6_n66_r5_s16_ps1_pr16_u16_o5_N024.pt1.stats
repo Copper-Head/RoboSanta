@@ -1,0 +1,37 @@
+clingo version 5.3.0
+Reading from ..._y6_n66_r5_s16_ps1_pr16_u16_o5_N024.lp ...
+Solving...
+Answer: 1
+occurs(robot(1),action(deliver,(order(3),product(1))),11) occurs(robot(2),action(deliver,(order(2),product(4))),13) occurs(robot(4),action(deliver,(order(1),product(5))),15) occurs(robot(5),action(deliver,(order(4),product(3))),17) occurs(robot(3),action(deliver,(order(5),product(6))),19) occurs(robot(1),action(pickup,()),5) occurs(robot(2),action(pickup,()),9) occurs(robot(3),action(pickup,()),5) occurs(robot(4),action(pickup,()),4) occurs(robot(5),action(pickup,()),5) occurs(robot(1),action(move,(1,0)),0) occurs(robot(1),action(move,(0,-1)),1) occurs(robot(1),action(move,(0,-1)),2) occurs(robot(1),action(move,(1,0)),3) occurs(robot(1),action(move,(0,-1)),4) occurs(robot(1),action(move,(0,-1)),6) occurs(robot(1),action(move,(1,0)),7) occurs(robot(1),action(move,(1,0)),8) occurs(robot(1),action(move,(1,0)),9) occurs(robot(1),action(move,(0,-1)),10) occurs(robot(1),action(move,(0,1)),12) occurs(robot(1),action(move,(1,0)),13) occurs(robot(1),action(move,(0,-1)),15) occurs(robot(1),action(move,(0,1)),18) occurs(robot(2),action(move,(0,-1)),0) occurs(robot(2),action(move,(1,0)),1) occurs(robot(2),action(move,(1,0)),2) occurs(robot(2),action(move,(0,-1)),4) occurs(robot(2),action(move,(1,0)),5) occurs(robot(2),action(move,(1,0)),6) occurs(robot(2),action(move,(0,-1)),7) occurs(robot(2),action(move,(1,0)),8) occurs(robot(2),action(move,(0,-1)),10) occurs(robot(2),action(move,(0,-1)),11) occurs(robot(2),action(move,(-1,0)),12) occurs(robot(2),action(move,(-1,0)),14) occurs(robot(2),action(move,(0,1)),15) occurs(robot(2),action(move,(0,-1)),16) occurs(robot(2),action(move,(-1,0)),18) occurs(robot(3),action(move,(0,-1)),0) occurs(robot(3),action(move,(0,-1)),1) occurs(robot(3),action(move,(0,-1)),2) occurs(robot(3),action(move,(-1,0)),3) occurs(robot(3),action(move,(0,-1)),7) occurs(robot(3),action(move,(1,0)),8) occurs(robot(3),action(move,(0,1)),11) occurs(robot(3),action(move,(0,-1)),12) occurs(robot(3),action(move,(1,0)),15) occurs(robot(3),action(move,(1,0)),16) occurs(robot(3),action(move,(1,0)),17) occurs(robot(3),action(move,(0,-1)),18) occurs(robot(4),action(move,(0,-1)),0) occurs(robot(4),action(move,(1,0)),1) occurs(robot(4),action(move,(0,-1)),2) occurs(robot(4),action(move,(0,1)),5) occurs(robot(4),action(move,(1,0)),6) occurs(robot(4),action(move,(-1,0)),7) occurs(robot(4),action(move,(1,0)),8) occurs(robot(4),action(move,(0,-1)),10) occurs(robot(4),action(move,(0,-1)),12) occurs(robot(4),action(move,(0,-1)),13) occurs(robot(4),action(move,(0,-1)),14) occurs(robot(4),action(move,(0,1)),16) occurs(robot(4),action(move,(0,1)),17) occurs(robot(5),action(move,(-1,0)),0) occurs(robot(5),action(move,(-1,0)),1) occurs(robot(5),action(move,(0,-1)),2) occurs(robot(5),action(move,(0,-1)),4) occurs(robot(5),action(move,(0,-1)),6) occurs(robot(5),action(move,(-1,0)),7) occurs(robot(5),action(move,(1,0)),9) occurs(robot(5),action(move,(-1,0)),10) occurs(robot(5),action(move,(0,-1)),11) occurs(robot(5),action(move,(0,-1)),12) occurs(robot(5),action(move,(1,0)),13) occurs(robot(5),action(move,(1,0)),14) occurs(robot(5),action(move,(1,0)),15) occurs(robot(5),action(move,(1,0)),16) occurs(robot(5),action(move,(1,0)),18)
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 122.124s (Solving: 120.17s 1st Model: 120.17s Unsat: 0.00s)
+CPU Time     : 122.096s
+
+Choices      : 2850790 
+Conflicts    : 125795   (Analyzed: 125795)
+Restarts     : 332      (Average: 378.90 Last: 823)
+Model-Level  : 398.0   
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 125795   (Deleted: 94404)
+  Binary     : 6941     (Ratio:   5.52%)
+  Ternary    : 7092     (Ratio:   5.64%)
+  Conflict   : 125795   (Average Length:  201.6 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 125795   (Average: 21.98 Max: 1683 Sum: 2765568)
+  Executed   : 125795   (Average: 21.98 Max: 1683 Sum: 2765568 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 399982   (Original: 390232)
+  Choice     : 105     
+Atoms        : 51307   
+Bodies       : 304131   (Original: 294381)
+  Count      : 1445     (Original: 2569)
+Equivalences : 47462    (Atom=Atom: 8900 Body=Body: 490 Other: 38072)
+Tight        : Yes
+Variables    : 284556   (Eliminated:    0 Frozen: 20909)
+Constraints  : 1261738  (Binary:  75.7% Ternary:   8.6% Other:  15.7%)
+

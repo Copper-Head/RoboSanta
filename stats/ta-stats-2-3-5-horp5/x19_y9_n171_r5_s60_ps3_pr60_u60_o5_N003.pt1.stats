@@ -1,0 +1,42 @@
+clingo version 5.3.0
+Reading from ...y9_n171_r5_s60_ps3_pr60_u60_o5_N003.lp ...
+Solving...
+Answer: 6
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(12),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(15),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(17),0) shelf_last_delivery(shelf(18),0) shelf_last_delivery(shelf(19),0) shelf_last_delivery(shelf(20),0) shelf_last_delivery(shelf(21),0) shelf_last_delivery(shelf(22),0) shelf_last_delivery(shelf(23),0) shelf_last_delivery(shelf(24),0) shelf_last_delivery(shelf(25),0) shelf_last_delivery(shelf(26),0) shelf_last_delivery(shelf(27),0) shelf_last_delivery(shelf(28),0) shelf_last_delivery(shelf(29),0) shelf_last_delivery(shelf(30),0) shelf_last_delivery(shelf(31),0) shelf_last_delivery(shelf(32),0) shelf_last_delivery(shelf(33),0) shelf_last_delivery(shelf(34),0) shelf_last_delivery(shelf(35),0) shelf_last_delivery(shelf(36),0) shelf_last_delivery(shelf(37),0) shelf_last_delivery(shelf(38),0) shelf_last_delivery(shelf(39),0) shelf_last_delivery(shelf(40),0) shelf_last_delivery(shelf(41),0) shelf_last_delivery(shelf(42),0) shelf_last_delivery(shelf(43),0) shelf_last_delivery(shelf(44),0) shelf_last_delivery(shelf(45),0) shelf_last_delivery(shelf(46),0) shelf_last_delivery(shelf(47),0) shelf_last_delivery(shelf(48),0) shelf_last_delivery(shelf(49),0) shelf_last_delivery(shelf(50),0) shelf_last_delivery(shelf(51),0) shelf_last_delivery(shelf(52),0) shelf_last_delivery(shelf(53),0) shelf_last_delivery(shelf(54),0) shelf_last_delivery(shelf(60),0) shelf_last_delivery(shelf(55),1) shelf_last_delivery(shelf(56),1) shelf_last_delivery(shelf(57),1) shelf_last_delivery(shelf(58),1) shelf_last_delivery(shelf(59),1) shelf_delivery_sequence(order(1),shelf(56),1) robot_shelf_sequence(shelf(55),robot(5),2) robot_shelf_sequence(shelf(56),robot(5),3) robot_shelf_sequence(shelf(57),robot(5),4) shelf_delivery_sequence(order(2),shelf(58),1) robot_shelf_sequence(shelf(58),robot(3),1) shelf_delivery_sequence(order(3),shelf(55),1) shelf_delivery_sequence(order(4),shelf(57),1) shelf_delivery_sequence(order(5),shelf(59),1) robot_shelf_sequence(shelf(59),robot(5),1) assign(robot(5),shelf(56),station(1)) assign(robot(3),shelf(58),station(1)) assign(robot(5),shelf(55),station(1)) assign(robot(5),shelf(57),station(1)) assign(robot(5),shelf(59),station(1))
+Optimization: 11
+OPTIMUM FOUND
+
+Models       : 6
+  Optimum    : yes
+Optimization : 11
+Calls        : 1
+Time         : 0.119s (Solving: 0.07s 1st Model: 0.00s Unsat: 0.02s)
+CPU Time     : 0.116s
+
+Choices      : 2634    
+Conflicts    : 1757     (Analyzed: 1756)
+Restarts     : 13       (Average: 135.08 Last: 220)
+Model-Level  : 11.3    
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 1756     (Deleted: 0)
+  Binary     : 133      (Ratio:   7.57%)
+  Ternary    : 79       (Ratio:   4.50%)
+  Conflict   : 1756     (Average Length:   18.1 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 1756     (Average:  1.46 Max:  57 Sum:   2557)
+  Executed   : 1756     (Average:  1.46 Max:  57 Sum:   2557 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 8415     (Original: 7370)
+  Choice     : 145     
+  Minimize   : 1       
+Atoms        : 2094    
+Bodies       : 2396     (Original: 2101)
+  Sum        : 0        (Original: 50)
+  Count      : 0        (Original: 235)
+Equivalences : 1226     (Atom=Atom: 100 Body=Body: 105 Other: 1021)
+Tight        : Yes
+Variables    : 1989     (Eliminated:    0 Frozen:   50)
+Constraints  : 11203    (Binary:  83.3% Ternary:  12.6% Other:   4.1%)
+

@@ -1,0 +1,43 @@
+clingo version 5.3.0
+Reading from ..._n171_r15_s60_ps3_pr60_u60_o15_N009.lp ...
+Solving...
+Answer: 7
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(12),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(15),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(17),0) shelf_last_delivery(shelf(18),0) shelf_last_delivery(shelf(19),0) shelf_last_delivery(shelf(20),0) shelf_last_delivery(shelf(21),0) shelf_last_delivery(shelf(22),0) shelf_last_delivery(shelf(23),0) shelf_last_delivery(shelf(24),0) shelf_last_delivery(shelf(30),0) shelf_last_delivery(shelf(31),0) shelf_last_delivery(shelf(32),0) shelf_last_delivery(shelf(33),0) shelf_last_delivery(shelf(34),0) shelf_last_delivery(shelf(35),0) shelf_last_delivery(shelf(36),0) shelf_last_delivery(shelf(37),0) shelf_last_delivery(shelf(38),0) shelf_last_delivery(shelf(39),0) shelf_last_delivery(shelf(40),0) shelf_last_delivery(shelf(41),0) shelf_last_delivery(shelf(42),0) shelf_last_delivery(shelf(43),0) shelf_last_delivery(shelf(44),0) shelf_last_delivery(shelf(45),0) shelf_last_delivery(shelf(46),0) shelf_last_delivery(shelf(47),0) shelf_last_delivery(shelf(48),0) shelf_last_delivery(shelf(49),0) shelf_last_delivery(shelf(52),0) shelf_last_delivery(shelf(60),0) shelf_last_delivery(shelf(2),1) shelf_last_delivery(shelf(25),1) shelf_last_delivery(shelf(26),1) shelf_last_delivery(shelf(27),1) shelf_last_delivery(shelf(28),1) shelf_last_delivery(shelf(29),1) shelf_last_delivery(shelf(50),1) shelf_last_delivery(shelf(51),1) shelf_last_delivery(shelf(53),1) shelf_last_delivery(shelf(54),1) shelf_last_delivery(shelf(55),1) shelf_last_delivery(shelf(56),1) shelf_last_delivery(shelf(57),1) shelf_last_delivery(shelf(58),1) shelf_last_delivery(shelf(59),1) shelf_delivery_sequence(order(1),shelf(29),1) shelf_delivery_sequence(order(2),shelf(27),1) shelf_delivery_sequence(order(3),shelf(58),1) shelf_delivery_sequence(order(4),shelf(28),1) shelf_delivery_sequence(order(5),shelf(2),1) shelf_delivery_sequence(order(6),shelf(26),1) shelf_delivery_sequence(order(7),shelf(59),1) shelf_delivery_sequence(order(8),shelf(55),1) shelf_delivery_sequence(order(9),shelf(25),1) shelf_delivery_sequence(order(10),shelf(56),1) shelf_delivery_sequence(order(11),shelf(51),1) shelf_delivery_sequence(order(12),shelf(54),1) shelf_delivery_sequence(order(13),shelf(50),1) shelf_delivery_sequence(order(14),shelf(53),1) shelf_delivery_sequence(order(15),shelf(57),1) robot_shelf_sequence(shelf(54),robot(3),1) robot_shelf_sequence(shelf(29),robot(7),1) robot_shelf_sequence(shelf(51),robot(10),1) robot_shelf_sequence(shelf(25),robot(10),2) robot_shelf_sequence(shelf(56),robot(10),3) robot_shelf_sequence(shelf(59),robot(10),4) robot_shelf_sequence(shelf(55),robot(10),5) robot_shelf_sequence(shelf(28),robot(10),6) robot_shelf_sequence(shelf(57),robot(10),7) robot_shelf_sequence(shelf(26),robot(10),8) robot_shelf_sequence(shelf(58),robot(10),9) robot_shelf_sequence(shelf(27),robot(10),10) robot_shelf_sequence(shelf(2),robot(10),12) robot_shelf_sequence(shelf(53),robot(10),11) robot_shelf_sequence(shelf(50),robot(10),13) assign(robot(7),shelf(29),station(3)) assign(robot(10),shelf(27),station(3)) assign(robot(10),shelf(58),station(3)) assign(robot(10),shelf(28),station(3)) assign(robot(10),shelf(2),station(3)) assign(robot(10),shelf(26),station(3)) assign(robot(10),shelf(59),station(3)) assign(robot(10),shelf(55),station(3)) assign(robot(10),shelf(25),station(3)) assign(robot(10),shelf(56),station(3)) assign(robot(10),shelf(51),station(3)) assign(robot(3),shelf(54),station(3)) assign(robot(10),shelf(50),station(3)) assign(robot(10),shelf(53),station(3)) assign(robot(10),shelf(57),station(2))
+Optimization: 83
+SATISFIABLE
+
+INTERRUPTED  : 1
+Models       : 7+
+  Optimum    : unknown
+Optimization : 83
+Calls        : 1
+Time         : 299.976s (Solving: 299.03s 1st Model: 0.23s Unsat: 0.00s)
+CPU Time     : 299.944s
+
+Choices      : 728546  
+Conflicts    : 498725   (Analyzed: 498725)
+Restarts     : 1099     (Average: 453.80 Last: 498618)
+Model-Level  : 148.0   
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 498725   (Deleted: 489965)
+  Binary     : 172      (Ratio:   0.03%)
+  Ternary    : 359      (Ratio:   0.07%)
+  Conflict   : 498725   (Average Length:   96.3 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 498725   (Average:  1.30 Max: 2091 Sum: 648759)
+  Executed   : 498725   (Average:  1.30 Max: 2091 Sum: 648759 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 412438   (Original: 381073)
+  Choice     : 3435    
+  Minimize   : 1       
+Atoms        : 27938   
+Bodies       : 131209   (Original: 128389)
+  Sum        : 2010    
+  Count      : 2235     (Original: 6360)
+Equivalences : 29284    (Atom=Atom: 2670 Body=Body: 576 Other: 26038)
+Tight        : Yes
+Variables    : 104224   (Eliminated:    0 Frozen: 8201)
+Constraints  : 650712   (Binary:  84.1% Ternary:  13.8% Other:   2.1%)
+

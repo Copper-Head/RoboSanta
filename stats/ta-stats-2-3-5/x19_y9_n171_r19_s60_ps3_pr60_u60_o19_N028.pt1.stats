@@ -1,0 +1,43 @@
+clingo version 5.3.0
+Reading from ..._n171_r19_s60_ps3_pr60_u60_o19_N028.lp ...
+Solving...
+Answer: 5
+shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(17),0) shelf_last_delivery(shelf(18),0) shelf_last_delivery(shelf(19),0) shelf_last_delivery(shelf(20),0) shelf_last_delivery(shelf(21),0) shelf_last_delivery(shelf(22),0) shelf_last_delivery(shelf(23),0) shelf_last_delivery(shelf(24),0) shelf_last_delivery(shelf(25),0) shelf_last_delivery(shelf(26),0) shelf_last_delivery(shelf(27),0) shelf_last_delivery(shelf(29),0) shelf_last_delivery(shelf(30),0) shelf_last_delivery(shelf(34),0) shelf_last_delivery(shelf(35),0) shelf_last_delivery(shelf(36),0) shelf_last_delivery(shelf(37),0) shelf_last_delivery(shelf(38),0) shelf_last_delivery(shelf(39),0) shelf_last_delivery(shelf(40),0) shelf_last_delivery(shelf(41),0) shelf_last_delivery(shelf(42),0) shelf_last_delivery(shelf(43),0) shelf_last_delivery(shelf(44),0) shelf_last_delivery(shelf(45),0) shelf_last_delivery(shelf(47),0) shelf_last_delivery(shelf(48),0) shelf_last_delivery(shelf(49),0) shelf_last_delivery(shelf(50),0) shelf_last_delivery(shelf(51),0) shelf_last_delivery(shelf(52),0) shelf_last_delivery(shelf(53),0) shelf_last_delivery(shelf(54),0) shelf_last_delivery(shelf(55),0) shelf_last_delivery(shelf(58),0) shelf_last_delivery(shelf(59),0) shelf_last_delivery(shelf(60),0) shelf_last_delivery(shelf(1),1) shelf_last_delivery(shelf(3),1) shelf_last_delivery(shelf(4),1) shelf_last_delivery(shelf(5),1) shelf_last_delivery(shelf(7),1) shelf_last_delivery(shelf(8),1) shelf_last_delivery(shelf(9),1) shelf_last_delivery(shelf(11),1) shelf_last_delivery(shelf(12),1) shelf_last_delivery(shelf(13),1) shelf_last_delivery(shelf(15),1) shelf_last_delivery(shelf(16),1) shelf_last_delivery(shelf(28),1) shelf_last_delivery(shelf(31),1) shelf_last_delivery(shelf(32),1) shelf_last_delivery(shelf(33),1) shelf_last_delivery(shelf(46),1) shelf_last_delivery(shelf(56),1) shelf_last_delivery(shelf(57),1) shelf_delivery_sequence(order(1),shelf(1),1) shelf_delivery_sequence(order(2),shelf(5),1) shelf_delivery_sequence(order(3),shelf(4),1) shelf_delivery_sequence(order(4),shelf(3),1) shelf_delivery_sequence(order(5),shelf(7),1) shelf_delivery_sequence(order(6),shelf(8),1) shelf_delivery_sequence(order(7),shelf(9),1) shelf_delivery_sequence(order(8),shelf(11),1) shelf_delivery_sequence(order(9),shelf(12),1) shelf_delivery_sequence(order(10),shelf(13),1) shelf_delivery_sequence(order(11),shelf(32),1) shelf_delivery_sequence(order(12),shelf(56),1) shelf_delivery_sequence(order(13),shelf(16),1) shelf_delivery_sequence(order(14),shelf(15),1) shelf_delivery_sequence(order(15),shelf(33),1) shelf_delivery_sequence(order(16),shelf(31),1) shelf_delivery_sequence(order(17),shelf(57),1) shelf_delivery_sequence(order(18),shelf(46),1) shelf_delivery_sequence(order(19),shelf(28),1) robot_shelf_sequence(shelf(32),robot(9),1) robot_shelf_sequence(shelf(3),robot(10),1) robot_shelf_sequence(shelf(8),robot(12),1) robot_shelf_sequence(shelf(57),robot(12),2) robot_shelf_sequence(shelf(46),robot(12),3) robot_shelf_sequence(shelf(1),robot(12),5) robot_shelf_sequence(shelf(16),robot(12),4) robot_shelf_sequence(shelf(33),robot(12),6) robot_shelf_sequence(shelf(5),robot(12),7) robot_shelf_sequence(shelf(11),robot(12),8) robot_shelf_sequence(shelf(12),robot(12),9) robot_shelf_sequence(shelf(9),robot(12),10) robot_shelf_sequence(shelf(56),robot(12),11) robot_shelf_sequence(shelf(7),robot(13),1) robot_shelf_sequence(shelf(13),robot(13),2) robot_shelf_sequence(shelf(28),robot(13),3) robot_shelf_sequence(shelf(4),robot(13),4) robot_shelf_sequence(shelf(15),robot(13),5) robot_shelf_sequence(shelf(31),robot(17),1) assign(robot(12),shelf(1),station(2)) assign(robot(12),shelf(5),station(3)) assign(robot(13),shelf(4),station(3)) assign(robot(10),shelf(3),station(2)) assign(robot(13),shelf(7),station(3)) assign(robot(12),shelf(8),station(2)) assign(robot(12),shelf(9),station(2)) assign(robot(12),shelf(11),station(2)) assign(robot(12),shelf(12),station(2)) assign(robot(13),shelf(13),station(1)) assign(robot(9),shelf(32),station(1)) assign(robot(12),shelf(56),station(1)) assign(robot(12),shelf(16),station(2)) assign(robot(13),shelf(15),station(1)) assign(robot(12),shelf(33),station(2)) assign(robot(17),shelf(31),station(2)) assign(robot(12),shelf(57),station(1)) assign(robot(12),shelf(46),station(3)) assign(robot(13),shelf(28),station(3))
+Optimization: 107
+SATISFIABLE
+
+INTERRUPTED  : 1
+Models       : 5+
+  Optimum    : unknown
+Optimization : 107
+Calls        : 1
+Time         : 299.970s (Solving: 297.53s 1st Model: 0.39s Unsat: 0.00s)
+CPU Time     : 299.960s
+
+Choices      : 576227  
+Conflicts    : 251791   (Analyzed: 251791)
+Restarts     : 636      (Average: 395.90 Last: 249988)
+Model-Level  : 368.8   
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 251791   (Deleted: 244384)
+  Binary     : 313      (Ratio:   0.12%)
+  Ternary    : 194      (Ratio:   0.08%)
+  Conflict   : 251791   (Average Length:  153.1 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 251791   (Average:  1.85 Max: 4182 Sum: 465572)
+  Executed   : 251791   (Average:  1.85 Max: 4182 Sum: 465572 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 897311   (Original: 823192)
+  Choice     : 6935    
+  Minimize   : 1       
+Atoms        : 49101   
+Bodies       : 290026   (Original: 285504)
+  Sum        : 2527    
+  Count      : 5035     (Original: 13072)
+Equivalences : 51384    (Atom=Atom: 3743 Body=Body: 877 Other: 46764)
+Tight        : Yes
+Variables    : 221408   (Eliminated:    0 Frozen: 15226)
+Constraints  : 1402251  (Binary:  84.3% Ternary:  13.9% Other:   1.8%)
+

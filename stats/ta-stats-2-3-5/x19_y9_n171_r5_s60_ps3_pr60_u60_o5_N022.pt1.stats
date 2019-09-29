@@ -1,0 +1,42 @@
+clingo version 5.3.0
+Reading from ...y9_n171_r5_s60_ps3_pr60_u60_o5_N022.lp ...
+Solving...
+Answer: 5
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(12),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(15),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(17),0) shelf_last_delivery(shelf(18),0) shelf_last_delivery(shelf(19),0) shelf_last_delivery(shelf(20),0) shelf_last_delivery(shelf(21),0) shelf_last_delivery(shelf(22),0) shelf_last_delivery(shelf(23),0) shelf_last_delivery(shelf(24),0) shelf_last_delivery(shelf(25),0) shelf_last_delivery(shelf(26),0) shelf_last_delivery(shelf(27),0) shelf_last_delivery(shelf(28),0) shelf_last_delivery(shelf(29),0) shelf_last_delivery(shelf(30),0) shelf_last_delivery(shelf(31),0) shelf_last_delivery(shelf(32),0) shelf_last_delivery(shelf(33),0) shelf_last_delivery(shelf(34),0) shelf_last_delivery(shelf(35),0) shelf_last_delivery(shelf(37),0) shelf_last_delivery(shelf(38),0) shelf_last_delivery(shelf(39),0) shelf_last_delivery(shelf(40),0) shelf_last_delivery(shelf(41),0) shelf_last_delivery(shelf(42),0) shelf_last_delivery(shelf(43),0) shelf_last_delivery(shelf(44),0) shelf_last_delivery(shelf(45),0) shelf_last_delivery(shelf(46),0) shelf_last_delivery(shelf(47),0) shelf_last_delivery(shelf(48),0) shelf_last_delivery(shelf(49),0) shelf_last_delivery(shelf(50),0) shelf_last_delivery(shelf(51),0) shelf_last_delivery(shelf(52),0) shelf_last_delivery(shelf(53),0) shelf_last_delivery(shelf(54),0) shelf_last_delivery(shelf(56),0) shelf_last_delivery(shelf(57),0) shelf_last_delivery(shelf(58),0) shelf_last_delivery(shelf(59),0) shelf_last_delivery(shelf(60),0) shelf_last_delivery(shelf(5),1) shelf_last_delivery(shelf(6),1) shelf_last_delivery(shelf(7),1) shelf_last_delivery(shelf(36),1) shelf_last_delivery(shelf(55),1) shelf_delivery_sequence(order(1),shelf(7),1) robot_shelf_sequence(shelf(7),robot(2),1) shelf_delivery_sequence(order(2),shelf(6),1) robot_shelf_sequence(shelf(6),robot(1),1) shelf_delivery_sequence(order(3),shelf(55),1) robot_shelf_sequence(shelf(55),robot(3),1) shelf_delivery_sequence(order(4),shelf(36),1) robot_shelf_sequence(shelf(36),robot(5),1) shelf_delivery_sequence(order(5),shelf(5),1) robot_shelf_sequence(shelf(5),robot(4),1) assign(robot(2),shelf(7),station(3)) assign(robot(1),shelf(6),station(2)) assign(robot(3),shelf(55),station(2)) assign(robot(5),shelf(36),station(3)) assign(robot(4),shelf(5),station(3))
+Optimization: 12
+OPTIMUM FOUND
+
+Models       : 5
+  Optimum    : yes
+Optimization : 12
+Calls        : 1
+Time         : 0.333s (Solving: 0.27s 1st Model: 0.00s Unsat: 0.21s)
+CPU Time     : 0.328s
+
+Choices      : 6983    
+Conflicts    : 5077     (Analyzed: 5076)
+Restarts     : 30       (Average: 169.20 Last: 7)
+Model-Level  : 11.4    
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 5076     (Deleted: 1201)
+  Binary     : 308      (Ratio:   6.07%)
+  Ternary    : 349      (Ratio:   6.88%)
+  Conflict   : 5076     (Average Length:   21.1 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 5076     (Average:  1.35 Max:  24 Sum:   6875)
+  Executed   : 5076     (Average:  1.35 Max:  24 Sum:   6875 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 15705    (Original: 14660)
+  Choice     : 145     
+  Minimize   : 1       
+Atoms        : 2853    
+Bodies       : 3931     (Original: 3576)
+  Sum        : 220     
+  Count      : 0        (Original: 235)
+Equivalences : 2133     (Atom=Atom: 315 Body=Body: 91 Other: 1727)
+Tight        : Yes
+Variables    : 3577     (Eliminated:    0 Frozen:  324)
+Constraints  : 21870    (Binary:  84.2% Ternary:  11.5% Other:   4.3%)
+

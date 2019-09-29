@@ -1,0 +1,42 @@
+clingo version 5.3.0
+Reading from ..._y6_n66_r8_s16_ps1_pr16_u16_o8_N003.lp ...
+Solving...
+Answer: 10
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(2),1) shelf_last_delivery(shelf(4),1) shelf_last_delivery(shelf(9),1) shelf_last_delivery(shelf(11),1) shelf_last_delivery(shelf(12),1) shelf_last_delivery(shelf(13),1) shelf_last_delivery(shelf(14),1) shelf_last_delivery(shelf(15),1) shelf_delivery_sequence(order(1),shelf(12),1) shelf_delivery_sequence(order(2),shelf(11),1) shelf_delivery_sequence(order(3),shelf(14),1) shelf_delivery_sequence(order(4),shelf(4),1) shelf_delivery_sequence(order(5),shelf(2),1) shelf_delivery_sequence(order(6),shelf(13),1) shelf_delivery_sequence(order(7),shelf(9),1) shelf_delivery_sequence(order(8),shelf(15),1) robot_shelf_sequence(shelf(15),robot(1),1) robot_shelf_sequence(shelf(9),robot(2),1) robot_shelf_sequence(shelf(11),robot(3),1) robot_shelf_sequence(shelf(2),robot(4),1) robot_shelf_sequence(shelf(12),robot(5),1) robot_shelf_sequence(shelf(4),robot(6),1) robot_shelf_sequence(shelf(14),robot(7),1) robot_shelf_sequence(shelf(13),robot(8),1) assign(robot(5),shelf(12),station(1)) assign(robot(3),shelf(11),station(1)) assign(robot(7),shelf(14),station(1)) assign(robot(6),shelf(4),station(1)) assign(robot(4),shelf(2),station(1)) assign(robot(8),shelf(13),station(1)) assign(robot(2),shelf(9),station(1)) assign(robot(1),shelf(15),station(1))
+Optimization: 4
+OPTIMUM FOUND
+
+Models       : 10
+  Optimum    : yes
+Optimization : 4
+Calls        : 1
+Time         : 16.955s (Solving: 16.87s 1st Model: 0.00s Unsat: 8.73s)
+CPU Time     : 16.948s
+
+Choices      : 291376  
+Conflicts    : 243229   (Analyzed: 243228)
+Restarts     : 548      (Average: 443.85 Last: 18)
+Model-Level  : 33.9    
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 243228   (Deleted: 215581)
+  Binary     : 1251     (Ratio:   0.51%)
+  Ternary    : 1522     (Ratio:   0.63%)
+  Conflict   : 243228   (Average Length:   20.1 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 243228   (Average:  1.17 Max:  78 Sum: 285253)
+  Executed   : 243228   (Average:  1.17 Max:  78 Sum: 285253 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 19446    (Original: 15134)
+  Choice     : 544     
+  Minimize   : 1       
+Atoms        : 3914    
+Bodies       : 10813    (Original: 10149)
+  Sum        : 0        (Original: 176)
+  Count      : 184      (Original: 928)
+Equivalences : 3602     (Atom=Atom: 256 Body=Body: 198 Other: 3148)
+Tight        : Yes
+Variables    : 8626     (Eliminated:    0 Frozen:  790)
+Constraints  : 36815    (Binary:  77.0% Ternary:  18.4% Other:   4.6%)
+

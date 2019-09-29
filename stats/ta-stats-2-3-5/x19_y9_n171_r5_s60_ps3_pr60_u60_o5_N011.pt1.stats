@@ -1,0 +1,42 @@
+clingo version 5.3.0
+Reading from ...y9_n171_r5_s60_ps3_pr60_u60_o5_N011.lp ...
+Solving...
+Answer: 5
+shelf_last_delivery(shelf(1),0) shelf_last_delivery(shelf(2),0) shelf_last_delivery(shelf(3),0) shelf_last_delivery(shelf(4),0) shelf_last_delivery(shelf(5),0) shelf_last_delivery(shelf(6),0) shelf_last_delivery(shelf(7),0) shelf_last_delivery(shelf(8),0) shelf_last_delivery(shelf(9),0) shelf_last_delivery(shelf(10),0) shelf_last_delivery(shelf(11),0) shelf_last_delivery(shelf(12),0) shelf_last_delivery(shelf(13),0) shelf_last_delivery(shelf(14),0) shelf_last_delivery(shelf(15),0) shelf_last_delivery(shelf(16),0) shelf_last_delivery(shelf(17),0) shelf_last_delivery(shelf(18),0) shelf_last_delivery(shelf(19),0) shelf_last_delivery(shelf(20),0) shelf_last_delivery(shelf(21),0) shelf_last_delivery(shelf(22),0) shelf_last_delivery(shelf(23),0) shelf_last_delivery(shelf(24),0) shelf_last_delivery(shelf(25),0) shelf_last_delivery(shelf(26),0) shelf_last_delivery(shelf(27),0) shelf_last_delivery(shelf(28),0) shelf_last_delivery(shelf(29),0) shelf_last_delivery(shelf(30),0) shelf_last_delivery(shelf(31),0) shelf_last_delivery(shelf(32),0) shelf_last_delivery(shelf(33),0) shelf_last_delivery(shelf(34),0) shelf_last_delivery(shelf(35),0) shelf_last_delivery(shelf(36),0) shelf_last_delivery(shelf(37),0) shelf_last_delivery(shelf(38),0) shelf_last_delivery(shelf(39),0) shelf_last_delivery(shelf(41),0) shelf_last_delivery(shelf(42),0) shelf_last_delivery(shelf(44),0) shelf_last_delivery(shelf(46),0) shelf_last_delivery(shelf(48),0) shelf_last_delivery(shelf(50),0) shelf_last_delivery(shelf(51),0) shelf_last_delivery(shelf(52),0) shelf_last_delivery(shelf(53),0) shelf_last_delivery(shelf(54),0) shelf_last_delivery(shelf(55),0) shelf_last_delivery(shelf(56),0) shelf_last_delivery(shelf(57),0) shelf_last_delivery(shelf(58),0) shelf_last_delivery(shelf(59),0) shelf_last_delivery(shelf(60),0) shelf_last_delivery(shelf(40),1) shelf_last_delivery(shelf(43),1) shelf_last_delivery(shelf(45),1) shelf_last_delivery(shelf(47),1) shelf_last_delivery(shelf(49),1) shelf_delivery_sequence(order(1),shelf(47),1) robot_shelf_sequence(shelf(45),robot(3),2) robot_shelf_sequence(shelf(47),robot(5),1) shelf_delivery_sequence(order(2),shelf(45),1) shelf_delivery_sequence(order(3),shelf(40),1) robot_shelf_sequence(shelf(40),robot(3),1) shelf_delivery_sequence(order(4),shelf(43),1) robot_shelf_sequence(shelf(43),robot(2),1) shelf_delivery_sequence(order(5),shelf(49),1) robot_shelf_sequence(shelf(49),robot(4),1) assign(robot(5),shelf(47),station(2)) assign(robot(3),shelf(45),station(2)) assign(robot(3),shelf(40),station(3)) assign(robot(2),shelf(43),station(2)) assign(robot(4),shelf(49),station(3))
+Optimization: 15
+OPTIMUM FOUND
+
+Models       : 5
+  Optimum    : yes
+Optimization : 15
+Calls        : 1
+Time         : 0.372s (Solving: 0.31s 1st Model: 0.00s Unsat: 0.22s)
+CPU Time     : 0.368s
+
+Choices      : 8536    
+Conflicts    : 5466     (Analyzed: 5465)
+Restarts     : 30       (Average: 182.17 Last: 562)
+Model-Level  : 11.8    
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 5465     (Deleted: 1215)
+  Binary     : 284      (Ratio:   5.20%)
+  Ternary    : 362      (Ratio:   6.62%)
+  Conflict   : 5465     (Average Length:   26.6 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 5465     (Average:  1.53 Max: 223 Sum:   8381)
+  Executed   : 5465     (Average:  1.53 Max: 223 Sum:   8381 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 17673    (Original: 16638)
+  Choice     : 145     
+  Minimize   : 1       
+Atoms        : 2899    
+Bodies       : 3980     (Original: 3630)
+  Sum        : 230     
+  Count      : 0        (Original: 235)
+Equivalences : 2180     (Atom=Atom: 305 Body=Body: 93 Other: 1782)
+Tight        : Yes
+Variables    : 3617     (Eliminated:    0 Frozen:  336)
+Constraints  : 23857    (Binary:  85.3% Ternary:  10.7% Other:   4.0%)
+

@@ -1,0 +1,37 @@
+clingo version 5.3.0
+Reading from ..._y6_n66_r5_s16_ps1_pr16_u16_o5_N027.lp ...
+Solving...
+Answer: 1
+done(task(order(1),shelf(14),1),24) done(task(order(2),shelf(10),1),26) done(task(order(3),shelf(15),1),15) done(task(order(4),shelf(12),1),12) done(task(order(5),shelf(1),1),10) occurs(robot(2),action(deliver,(order(5),product(1))),10) occurs(robot(1),action(deliver,(order(4),product(16))),12) occurs(robot(5),action(deliver,(order(3),product(3))),15) occurs(robot(2),action(deliver,(order(1),product(4))),24) occurs(robot(3),action(deliver,(order(2),product(5))),26) occurs(robot(2),action(putdown,()),18) occurs(robot(3),action(putdown,()),17) occurs(robot(4),action(putdown,()),18) occurs(robot(1),action(pickup,()),4) occurs(robot(2),action(pickup,()),4) occurs(robot(2),action(pickup,()),20) occurs(robot(3),action(pickup,()),7) occurs(robot(3),action(pickup,()),21) occurs(robot(4),action(pickup,()),7) occurs(robot(5),action(pickup,()),8) occurs(robot(1),action(move,(0,-1)),0) occurs(robot(1),action(move,(0,-1)),1) occurs(robot(1),action(move,(0,-1)),2) occurs(robot(1),action(move,(1,0)),3) occurs(robot(1),action(move,(1,0)),5) occurs(robot(1),action(move,(0,-1)),7) occurs(robot(1),action(move,(1,0)),8) occurs(robot(1),action(move,(0,-1)),9) occurs(robot(1),action(move,(1,0)),10) occurs(robot(1),action(move,(1,0)),11) occurs(robot(1),action(move,(-1,0)),13) occurs(robot(1),action(move,(0,1)),14) occurs(robot(1),action(move,(1,0)),15) occurs(robot(1),action(move,(1,0)),17) occurs(robot(1),action(move,(-1,0)),20) occurs(robot(1),action(move,(-1,0)),21) occurs(robot(1),action(move,(1,0)),25) occurs(robot(2),action(move,(0,-1)),0) occurs(robot(2),action(move,(0,-1)),1) occurs(robot(2),action(move,(0,-1)),2) occurs(robot(2),action(move,(1,0)),3) occurs(robot(2),action(move,(0,-1)),5) occurs(robot(2),action(move,(0,-1)),6) occurs(robot(2),action(move,(1,0)),7) occurs(robot(2),action(move,(1,0)),8) occurs(robot(2),action(move,(1,0)),9) occurs(robot(2),action(move,(0,1)),11) occurs(robot(2),action(move,(0,1)),12) occurs(robot(2),action(move,(0,-1)),14) occurs(robot(2),action(move,(1,0)),15) occurs(robot(2),action(move,(1,0)),16) occurs(robot(2),action(move,(0,1)),17) occurs(robot(2),action(move,(-1,0)),19) occurs(robot(2),action(move,(0,-1)),21) occurs(robot(2),action(move,(-1,0)),22) occurs(robot(2),action(move,(0,-1)),23) occurs(robot(2),action(move,(1,0)),25) occurs(robot(3),action(move,(1,0)),0) occurs(robot(3),action(move,(1,0)),1) occurs(robot(3),action(move,(1,0)),2) occurs(robot(3),action(move,(1,0)),3) occurs(robot(3),action(move,(1,0)),4) occurs(robot(3),action(move,(0,-1)),5) occurs(robot(3),action(move,(0,-1)),6) occurs(robot(3),action(move,(0,-1)),8) occurs(robot(3),action(move,(0,-1)),10) occurs(robot(3),action(move,(0,-1)),11) occurs(robot(3),action(move,(-1,0)),12) occurs(robot(3),action(move,(-1,0)),13) occurs(robot(3),action(move,(-1,0)),14) occurs(robot(3),action(move,(1,0)),16) occurs(robot(3),action(move,(1,0)),18) occurs(robot(3),action(move,(-1,0)),19) occurs(robot(3),action(move,(-1,0)),22) occurs(robot(3),action(move,(-1,0)),23) occurs(robot(3),action(move,(1,0)),24) occurs(robot(3),action(move,(1,0)),25) occurs(robot(4),action(move,(0,-1)),0) occurs(robot(4),action(move,(1,0)),1) occurs(robot(4),action(move,(1,0)),2) occurs(robot(4),action(move,(0,-1)),3) occurs(robot(4),action(move,(0,-1)),4) occurs(robot(4),action(move,(1,0)),5) occurs(robot(4),action(move,(1,0)),6) occurs(robot(4),action(move,(0,-1)),8) occurs(robot(4),action(move,(-1,0)),9) occurs(robot(4),action(move,(-1,0)),10) occurs(robot(4),action(move,(-1,0)),11) occurs(robot(4),action(move,(-1,0)),12) occurs(robot(4),action(move,(-1,0)),16) occurs(robot(4),action(move,(0,1)),17) occurs(robot(4),action(move,(-1,0)),22) occurs(robot(4),action(move,(-1,0)),23) occurs(robot(4),action(move,(0,1)),26) occurs(robot(5),action(move,(1,0)),0) occurs(robot(5),action(move,(1,0)),1) occurs(robot(5),action(move,(1,0)),2) occurs(robot(5),action(move,(1,0)),3) occurs(robot(5),action(move,(1,0)),4) occurs(robot(5),action(move,(0,-1)),5) occurs(robot(5),action(move,(0,-1)),6) occurs(robot(5),action(move,(0,-1)),7) occurs(robot(5),action(move,(0,-1)),9) occurs(robot(5),action(move,(-1,0)),10) occurs(robot(5),action(move,(-1,0)),11) occurs(robot(5),action(move,(-1,0)),12) occurs(robot(5),action(move,(-1,0)),13) occurs(robot(5),action(move,(0,-1)),14) occurs(robot(5),action(move,(1,0)),16) occurs(robot(5),action(move,(1,0)),18) occurs(robot(5),action(move,(-1,0)),19) occurs(robot(5),action(move,(1,0)),20) occurs(robot(5),action(move,(1,0)),22) occurs(robot(5),action(move,(1,0)),23) occurs(robot(5),action(move,(0,1)),24) occurs(robot(5),action(move,(-1,0)),25) occurs(robot(5),action(move,(-1,0)),26)
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 979.880s (Solving: 977.13s 1st Model: 977.13s Unsat: 0.00s)
+CPU Time     : 979.792s
+
+Choices      : 13013881
+Conflicts    : 812628   (Analyzed: 812628)
+Restarts     : 1819     (Average: 446.74 Last: 446)
+Model-Level  : 592.0   
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 812628   (Deleted: 706304)
+  Binary     : 17671    (Ratio:   2.17%)
+  Ternary    : 28779    (Ratio:   3.54%)
+  Conflict   : 812628   (Average Length:  297.5 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 812628   (Average: 15.27 Max: 3204 Sum: 12405451)
+  Executed   : 812628   (Average: 15.27 Max: 3204 Sum: 12405451 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 604711   (Original: 590223)
+  Choice     : 140     
+Atoms        : 74934   
+Bodies       : 462079   (Original: 447686)
+  Count      : 2089     (Original: 3715)
+Equivalences : 66994    (Atom=Atom: 12218 Body=Body: 598 Other: 54178)
+Tight        : Yes
+Variables    : 433348   (Eliminated:    0 Frozen: 31171)
+Constraints  : 1945058  (Binary:  75.7% Ternary:   8.5% Other:  15.8%)
+
