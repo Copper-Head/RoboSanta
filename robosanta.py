@@ -458,7 +458,7 @@ def experiment(config_path, instances_dir, stats_dir, extend_horizon, clingo_opt
 
         clingo_options = list(clingo_options)
         if not horizon_option_present:
-            clingo_options.append(f"-c horizon={horizon}")
+            clingo_options_final = clingo_options + [f"-c horizon={horizon}"]
 
         solvers = split_solver(
             instance_facts,
@@ -467,7 +467,7 @@ def experiment(config_path, instances_dir, stats_dir, extend_horizon, clingo_opt
             verbose=True,
             time_limit_ta=300,
             time_limit_pf=1800,
-            options=clingo_options,
+            options=clingo_options_final,
         )
         tqdm.write("Finished")
         for solver, part in zip(solvers, ["pt1", "pt2"]):
