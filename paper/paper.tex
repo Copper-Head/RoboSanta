@@ -1,0 +1,164 @@
+\section{Introduction and our proposal}
+\label{sec:orgaf30ac5}
+Warehouses entirely serviced by robots, known as \emph{autonomous warehouses} \cite{wurman2008coordinating} have become a reality with systems like Amazon Kiva \cite{li2016design} seeing production use and serving real customers.
+Such systems pose a number of engineering and complexity challenges.
+\subsection{they pose several engineering and CS challenges}
+\label{sec:org7e55105}
+Not sure whether to expand on this, but if we chose to expand, here's what I'd put in:
+\paragraph{coordinating robots}
+\label{sec:org33195a7}
+this is essentially MAPF, but we can introduce it more informally
+\paragraph{grid/warehouse size}
+\label{sec:orgdfb8b2a}
+\paragraph{number of robots}
+\label{sec:org12961cb}
+\paragraph{number of shelves/orders to take care of}
+\label{sec:orge2526f1}
+\paragraph{quantities and units}
+\label{sec:org948b6c3}
+\subsection{it pays to split the problem\ldots{}}
+\label{sec:org05ff91e}
+It pays to break this problems sub-tasks.
+ One such sub-task is coordinating the movement of multiple robots to their targets.
+ It is an instance of a well-known problem in the literature, \emph{multi-agent path finding} (MAPF).
+ Unfortunately, MAPF is both too specific and too general to account for the full picture, rendering a lot of the existing research on it almost irrelevant.
+
+ There have been recent efforts to address these shortcomings, for example \emph{target assignment and path finding} (TAPF)  \cite{ma2016optimal} and a generalization thereof \cite{DBLP:conf-ijcai-NguyenOSS017} \footnote{This also provides a good recent overview of the different approaches to MAPF problems}.
+A more hands-on approach to subdividing the task is presented in \cite{gebser2018experimenting}.
+Building on this work we investigate whether a separate step that uses the Manhattan distance-based heuristic to assign robots shelves to visit helps improve performance.
+Using \emph{Answer Set Programming} \cite{lifschitz2002answer} as implemented by the \cite{gebser2014clingo} software, we show that task assignment does lead to faster solving albeit at the cost of a few sub-optimal solutions.
+
+\subsection{Structure of this report}
+\label{sec:orgb773f4a}
+Maybe we don't really need this section because the report itself is so short.
+At the same time, could be nice to pad it out more
+
+\section{Method}
+\label{sec:org25a72e5}
+\cite{gebser2018experimenting} employ a hierarchy of increasingly more restrictive domains to systematically isolate the degrees of freedom in the process an autonomous warehouse must engage in to fulfill a given set of delivery requests.
+ We chose to work on the simplest domain (C) that still involves task assignment and is not just an instance of MAPF.
+ This means we ignore quantities of products and also assume that multiple orders can be satisfied by delivering one shelf with products from the orders\footnote{In fact, we assume \textbf{all} relevant orders are satisfied.}.
+
+\subsection{{\bfseries\sffamily TODO} System decomposition}
+\label{sec:orgd35f5df}
+\subsubsection{warehouse layout}
+\label{sec:org814d6f1}
+\paragraph{Manhattan grid}
+\label{sec:org1b3c193}
+This is something to actually try out. I [Ilia] need to describe it in more detail.
+Actually, this is what is already supported by the generator, the difference is that what i'd be proposing has more passageways for the robots, but that doesn't really address the underlying issues.
+
+the other issue with having more passageways for the robots is that our task assignment explicitly favors a lower shelf/node ratio, so we have a confound: if we see a performance improvement, we cannot be sure it's because of something special in the layout or because we simply decreased the number of shelves.
+
+At the same time, it may be worthwhile to mention hierarchical pathfinding and cite that paper that impressed you so much.
+
+\paragraph{Highways}
+\label{sec:orgf2ba3a1}
+This is optional, shouldn't cost us much to set up since we have the encoding already, but we don't necessarily need it.
+
+\paragraph{layouts we considered but didn't have time for:}
+\label{sec:org7837de8}
+\begin{enumerate}
+\item multi-level warehouses
+\label{sec:org9d13e8e}
+\item conveyor belts in parts of the warehouses
+\label{sec:org088bd19}
+\end{enumerate}
+\subsubsection{task assignment}
+\label{sec:org31e6b66}
+\paragraph{interaction with the layout}
+\label{sec:org66ff033}
+To approximate the distances we use the Manhattan metric.
+This is both an approximation for the length and duration a robot has to travel to a shelf and for the length and duration a shelf has to travel to picking stations.
+We are aware that this is only a rough approximation even if the layout of the warehouse is rectangular without holes.
+The travel path of a robot can be obstructed by other robots.
+The travel path of a robot with a shelf can be obstructed by robots, shelves and picking stations.
+Thus, this is a decent approximation for robot paths if the ratio of robots to nodes is small.
+And it is only a decent approximation for shelf paths if the ratio of shelves to nodes is small and the shelves are positioned in a non-obstructing or block-wise way.
+The initial position of robots is not as relevant as it takes less effort to move these out of the way.
+\paragraph{assigning one robot to each shelf\ldots{}}
+\label{sec:org2cc82fe}
+\ldots{} is nearly optimal.
+
+     The number of possibilities for the solver is drastically reduced if each shelve only gets at most one robot in comparison to one robot for each deliver action or one robot for each shelf to picking station travel.
+The only speed-up to gain for assigning different robots to a shelf is by solving local obstruction issues.
+The switching of robots does not decrease travel time if the robot is not obstructed.
+\paragraph{shelf delivers all orders at picking station}
+\label{sec:org1731faf}
+
+We enforce this for a smaller search space, as travel between picking stations would be unnecessary.
+
+Thus, robots have sequences of shelves and shelves have sequences of orders.
+\paragraph{Heuristics}
+\label{sec:orgce6203c}
+Each shelf gets an cost for its travel.
+It is supposed to be an approximation of the minimum of possible time steps.
+This is the Manhattan distance between the target positions it has to travel to.
+
+Each robot also gets an cost.
+This is the Manhattan distance from the last picking station of the preceding shelf to the position of the next shelf.
+Added is the Manhattan distance of the robot its first shelf and the sum of all costs of the shelves assigned to this robot.
+We minimize the maximum of the robot costs to minimize the number of time steps to complete all orders.
+We also could minimize the required energy of all robots by taking the sum of all robot costs.
+\subsubsection{path finding}
+\label{sec:org46a5473}
+\paragraph{Do we minimize makespan? If yes, do we know why?}
+\label{sec:org1bcffe5}
+\paragraph{maybe we can put a couple core predicates here and explain what they do?}
+\label{sec:orgab4d90b}
+\section{Experiments}
+\label{sec:org15741d6}
+
+\subsection{Conditions}
+\label{sec:org6890f79}
+The baseline system was just the path finding component from the previous section.
+We then added the task assignment component as a separate step, with \texttt{clingo} being run separately for it and then the solution being passed to the path finding component.
+In both cases the default horizon was used, see the following section for details.
+We also found that the task assignment seemed to be producing sub-optimal plans, which resulted in unsolvable instances with the default horizon, so we extended it by 5 steps
+
+\subsection{Data and Software}
+\label{sec:orgf6d6b0b}
+We used problem instances developed for \cite{gebser2018experimenting}\footnote{Online access: \url{https://github.com/potassco/asprilo-encodings}}.
+These encodings were
+
+The experiments were conducted on the same infrastructure as \cite{gebser2018experimenting}, namely:
+
+\begin{itemize}
+\item 2 x AMD Opteron(tm) Processor 6278 Server, 32 cores, 64 threads
+\item 256 GB of RAM
+\item clingo 5.3.0 and python 3.6.8
+
+The \texttt{runsolver} wrapper was used for multi-processing support.
+We have made our scripts and configurations available online\footnote{Can be accessed at \url{https://github.com/Copper-Head/RoboSanta}} under the permissive MIT license.
+\end{itemize}
+\subsection{{\bfseries\sffamily TODO} output processing}
+\label{sec:org8c22942}
+I'm not sure what happens here actually.
+
+\section{Results}
+\label{sec:orga828b77}
+\subsection{Comparing ourselves to ourselves}
+\label{sec:orgeb8fb7a}
+\subsubsection{raw performance}
+\label{sec:orgd8b7d8f}
+\begin{center}
+\begin{tabular}{ll}
+system & solution time\\
+\hline
+baseline & \\
+TA + default horizon & \\
+TA + extended horizon & \\
+\end{tabular}
+\end{center}
+\subsubsection{{\bfseries\sffamily TODO} How many instances were sub-optimal?}
+\label{sec:org3319ecb}
+
+\subsection{Comparing to prior art}
+\label{sec:org30a1bdf}
+This section is optional, in case we decide to maybe throw in a comparison with the paper that released the dataset and the benchmarks.
+\section{Discussion}
+\label{sec:orgf926c93}
+\subsection{hierarchical A* planning}
+\label{sec:orgb6f722a}
+near optimal, based on a simple idea \cite{botea2004near}.
+this could be an improvement to both the path-finding and the task assignment
